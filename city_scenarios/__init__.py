@@ -2,7 +2,6 @@ from otree.api import *
 from otree.forms.widgets import RadioSelect
 
 # TODO:
-# - replace weblinks to local imgs
 
 
 doc = """

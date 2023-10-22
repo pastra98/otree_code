@@ -12,3 +12,6 @@ __pycache__/
 .DS_Store
 merge.ps1
 *.otreezip
+
+# add by myself
+demos
