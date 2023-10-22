@@ -6,7 +6,7 @@ SESSION_CONFIGS = [
         name='default',
         display_name="smart city survey",
         app_sequence=['city_scenarios'],
-        num_demo_participants=3,
+        num_demo_participants=2,
     )
 ]
 

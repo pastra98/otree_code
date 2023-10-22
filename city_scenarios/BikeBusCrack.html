@@ -1,0 +1,24 @@
+{{ block title }}All Scenes{{ endblock }}
+
+{{ block content }}
+bike
+<p><img src="{{ static 'city_pics/bike.jpg' }}" alt="bike" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.bike_contribution }}
+<hr>
+
+bus
+<p><img src="{{ static 'city_pics/bus.jpg'}}" alt="bus" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.bus_contribution }}
+<hr>
+
+crack
+<p><img src="{{ static 'city_pics/crack.jpg'}}" alt="crack" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.crack_contribution }}
+<hr>
+
+{{ next_button }}
+
+{{ endblock }}
