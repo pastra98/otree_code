@@ -1,0 +1,62 @@
+
+album link: https://imgur.com/a/rSgzJY3
+	  
+bike
+<p><img src="https://i.imgur.com/vc30utX.jpg" alt="bike" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.bike_contribution }}
+<hr>
+
+bus
+<p><img src="https://i.imgur.com/9bTi9lO.jpg" alt="bus" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.bus_contribution }}
+<hr>
+
+crack
+<p><img src="https://i.imgur.com/vQ4hWm0.jpg" alt="crack" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.crack_contribution }}
+<hr>
+
+drain
+<p><img src="https://i.imgur.com/LauhUd1.jpg" alt="drain" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.drain_contribution }}
+<hr>
+
+graffiti
+<p><img src="https://i.imgur.com/hdxhLyF.jpg" alt="graffiti" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.graffiti_contribution }}
+<hr>
+
+hydrant
+<p><img src="https://i.imgur.com/XekCYQx.jpg" alt="hydrant" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.hydrant_contribution }}
+<hr>
+
+bench
+<p><img src="https://i.imgur.com/pBEe9ve.jpg" alt="parkbench" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.bench_contribution }}
+<hr>
+
+stopsign
+<p><img src="https://i.imgur.com/2hQsoUb.jpg" alt="stopsign" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.stopsign_contribution }}
+<hr>
+
+streetlight
+<p><img src="https://i.imgur.com/QWX54P6.jpg" alt="streetlight" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.streetlight_contribution }}
+<hr>
+
+trash
+<p><img src="https://i.imgur.com/09h1XCX.jpg" alt="trash" width="50%" height="50%"></p>
+Choose how much effort you put in your submission:
+{{ formfield player.trash_contribution }}
+<hr>
