@@ -1,0 +1,26 @@
+{{ block title }}All Scenes{{ endblock }}
+{{ block content }}
+
+Spend your endowment on the following scenes:
+
+<table>
+  <tr>
+    <td style="width: 60%;">
+        <img src="{{ static img1 }}" alt="{{ name1 }}" width="40%" height="40%" style="margin-bottom: 50px; margin-right: 100px;">
+        <img src="{{ static img2 }}" alt="{{ name2 }}" width="40%" height="40%" style="margin-bottom: 50px; margin-right: 100px;">
+        <img src="{{ static img3 }}" alt="{{ name3 }}" width="40%" height="40%" style="margin-right: 100px;">
+    </td>
+    <td>
+      {{ for field in form }}
+        <hr style="margin-top: 100px;">
+        {{ field.label }}
+        {{ field }}
+        <hr style="margin-bottom: 100px;">
+      {{ endfor }}
+    </td>
+  </tr>
+</table>
+
+{{ next_button }}
+
+{{ endblock }}

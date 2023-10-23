@@ -22,6 +22,8 @@ class C(BaseConstants):
     SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench",
         "stopsign", "streetlight", "trash"]
     # ---------- all existing pages # TODO: this could be more beautiful
+    PAGES = [SCENARIOS[0:3], SCENARIOS[3:6], SCENARIOS[6:9]]
+    NUM_ROUNDS = len(PAGES)
 
 
 class Subsession(BaseSubsession):
@@ -49,38 +51,31 @@ class Player(BasePlayer):
     trash_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
 
 # -------------------- FUNCTIONS --------------------
-def check_effort(player: Player, timeout_happened):
-    # check if player has spent too much of their endowment
-    print(player.bike_contribution)
-
 
 # -------------------- PAGES --------------------
-class AllScenes(Page):
+
+class Scenario(Page):
     form_model = 'player'
-    form_fields = C.SCENARIOS
+    form_fields = [s+"_contribution" for s in C.SCENARIOS] # all scenarios
 
+    @staticmethod
+    def error_message(player, values):
+        total_spend = sum(values.values()) # this works because there are no other forms here
+        if total_spend > C.ENDOWMENT:
+            return f"You have spent {total_spend} but only have {C.ENDOWMENT} to spend"
 
-class ScenarioPage(Page):
-    form_model = 'player'
-    scenario_names = [] # this might also be dumb
+    @staticmethod
+    def get_form_fields(player):
+        return [s+"_contribution" for s in C.PAGES[player.round_number-1]]
 
-    # call to check if player has spent too much of their endowment here
-    before_next_page = check_effort
-
-class Scenario1(ScenarioPage):
-    # must be a class definition, cannot use instances for scenarios
-    # otree is seriously weird. would be cool to validate scenarios here
-    scenario_names = ["bike", "bus", "crack"]
-    form_fields = [f"{scenario}_contribution" for scenario in scenario_names]
-
-    template_dict = {}
-    for i, name in enumerate(scenario_names):
-        template_dict[f"name{i+1}"] = name
-        template_dict[f"img{i+1}"] = f"city_pics/{name}.jpg"
-    # solution - define whatever the page needs in the constants
-    @classmethod
+    @staticmethod
     def vars_for_template(player):
-        return C.template_dict
+        return {"img1": f"city_pics/{C.PAGES[player.round_number-1][0]}.jpg",
+                "img2": f"city_pics/{C.PAGES[player.round_number-1][1]}.jpg",
+                "img3": f"city_pics/{C.PAGES[player.round_number-1][2]}.jpg",
+                "name1": C.PAGES[player.round_number-1][0],
+                "name2": C.PAGES[player.round_number-1][1],
+                "name3": C.PAGES[player.round_number-1][2]}
 
 
 class WaitForPlayers(WaitPage):
@@ -93,4 +88,4 @@ class Feedback(Page):
     form_model = 'player'
 
 
-page_sequence = [Scenario1, WaitForPlayers, Feedback]
+page_sequence = [Scenario, WaitForPlayers, Feedback] # should repeat for NUM_ROUNDS
