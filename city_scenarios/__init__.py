@@ -33,9 +33,17 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # generate class attributes for all scenarios with _contribution suffix
-    for scenario in C.SCENARIOS:
-        locals()[f"{scenario}_contribution"] = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    bike_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    bus_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    crack_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    drain_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    graffiti_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    hydrant_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    bench_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    stopsign_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    streetlight_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    trash_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+
 # -------------------- FUNCTIONS --------------------
 
 # -------------------- PAGES --------------------
