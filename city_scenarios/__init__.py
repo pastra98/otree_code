@@ -13,7 +13,6 @@ Testing the smart city scenarios
 class C(BaseConstants):
     NAME_IN_URL = 'city_scenarios'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
     ENDOWMENT = cu(10)
     # ---------- Constats used by the player class
     # default choice for all contributions
