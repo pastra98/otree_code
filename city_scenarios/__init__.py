@@ -21,9 +21,7 @@ class C(BaseConstants):
     # ---------- all existing scenarios
     SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench",
         "stopsign", "streetlight", "trash"]
-    # ---------- all existing pages # TODO: this could be more beautiful
-    PAGES = [SCENARIOS[0:3], SCENARIOS[3:6], SCENARIOS[6:9]]
-    NUM_ROUNDS = len(PAGES)
+    NUM_ROUNDS = len(SCENARIOS)
 
 
 class Subsession(BaseSubsession):
@@ -66,16 +64,13 @@ class Scenario(Page):
 
     @staticmethod
     def get_form_fields(player):
-        return [s+"_contribution" for s in C.PAGES[player.round_number-1]]
+        return [f"{C.SCENARIOS[player.round_number-1]}_contribution"]
 
     @staticmethod
     def vars_for_template(player):
-        return {"img1": f"city_pics/{C.PAGES[player.round_number-1][0]}.jpg",
-                "img2": f"city_pics/{C.PAGES[player.round_number-1][1]}.jpg",
-                "img3": f"city_pics/{C.PAGES[player.round_number-1][2]}.jpg",
-                "name1": C.PAGES[player.round_number-1][0],
-                "name2": C.PAGES[player.round_number-1][1],
-                "name3": C.PAGES[player.round_number-1][2]}
+        scenario = C.SCENARIOS[player.round_number-1]
+        return {"img": f"city_pics/{scenario}.jpg",
+                "name": scenario}
 
 
 class WaitForPlayers(WaitPage):
