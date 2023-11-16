@@ -17,6 +17,8 @@ class C(BaseConstants):
     # ---------- Constats used by the player class
     # default choice for all contributions
     DEF_CHOICES = [[0,"none (cost=0)"], [1,"low (cost=1)"],[2,"high (cost=2)"]]
+    # multiplier for the individual share
+    MULTIPLIER = 2
     # ---------- all existing scenarios
     SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench",
         "stopsign", "streetlight", "trash"]
@@ -28,7 +30,7 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    total = models.CurrencyField()
+    total_contribution = models.CurrencyField()
     individual_share = models.CurrencyField()
 
 
@@ -72,11 +74,35 @@ class Scenario(Page):
 class WaitForPlayers(WaitPage):
     title_text = "Waiting for players"
     body_text = "Please wait for all players"
-    # after_all_players_arrive = set_payoffs
+    # after_all_players_arrive = "set_payoffs"
+
+    def after_all_players_arrive(group):
+        players = group.get_players()
+        scenario = C.SCENARIOS[group.round_number-1]
+        contributions = [getattr(p, f"{scenario}_contribution") for p in players]
+        group.total_contribution = sum(contributions)
+        group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+        for player in players:
+            player.payoff = C.ENDOWMENT - getattr(player, f"{scenario}_contribution") + group.individual_share
 
 
 class Feedback(Page):
     form_model = 'player'
+
+    # broken please fix
+    @staticmethod
+    def vars_for_template(player):
+        group = player.group
+        scenario = C.SCENARIOS[group.round_number-1]
+        contributions = getattr(player, f"{scenario}_contribution")
+        total_group_contribution = group.total_contribution
+        if total_group_contribution > 0:
+            contribution_percentage = (contributions / total_group_contribution) * 100
+        else:
+            contribution_percentage = 0
+        return {
+            'contribution_percentage': 0,
+        }
 
 
 page_sequence = [Scenario, WaitForPlayers, Feedback] # should repeat for NUM_ROUNDS
