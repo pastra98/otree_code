@@ -1,15 +1,9 @@
 from otree.api import *
 import random
-# from otree.forms.widgets import RadioSelect
-
-# TODO:
-
 
 doc = """
 get initial ses information
 """
-
-
 
 class C(BaseConstants):
     NAME_IN_URL = 'initial_survey'
@@ -44,7 +38,6 @@ class WaitForPlayers(WaitPage):
 
     # called when all players completed income survey
     def after_all_players_arrive(group):
-
         # assign treatments is called for all treatment groups
         def assign_treatments(players, treatment):
             # 1. assign players to feedback treatments
