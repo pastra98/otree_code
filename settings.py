@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='default',
         display_name="smart city survey",
-        app_sequence=['city_scenarios'],
+        app_sequence=['app_city_scenarios'],
         num_demo_participants=2,
     )
 ]
