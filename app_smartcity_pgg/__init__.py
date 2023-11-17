@@ -146,5 +146,4 @@ class AssignGroupWait(WaitPage):
     group_by_arrival_time = True
 
 
-# todo, might have to create seperate waitpage for getting players into same group
 page_sequence = [AssignGroupWait, Scenario, WaitForPlayers, Feedback] # should repeat for NUM_ROUNDS
