@@ -57,6 +57,7 @@ class Player(BasePlayer):
 
 # -------------------- FUNCTIONS --------------------
 
+# this function ensures that only players with the same feedback treatment are grouped together
 def group_by_arrival_time_method(subsession, waiting_players):
     should_be_in_a_group = len(subsession.get_players()) // 3
     # todo, make this more robust, what if less than should be in a group? timeouts etc.
@@ -132,7 +133,7 @@ class Feedback(Page):
 
         # todo, refactor this shit
         if group.total_spend > 0:
-            contribution_percentage = (contributions / group.total_spend) * 100
+            contribution_percentage = round((float(contributions) / float(group.total_spend)) * 100, 2)
         else:
             contribution_percentage = 0
         return {
