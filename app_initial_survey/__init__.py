@@ -1,4 +1,5 @@
 from otree.api import *
+import random
 # from otree.forms.widgets import RadioSelect
 
 # TODO:
@@ -41,14 +42,30 @@ class WaitForPlayers(WaitPage):
     title_text = "Waiting for players"
     body_text = "Please wait for all players"
 
+    # called when all players completed income survey
     def after_all_players_arrive(group):
-        # here we could:
-        # 1. assign players to feedback treatments
+
+        # assign treatments is called for all treatment groups
+        def assign_treatments(players, treatment):
+            # 1. assign players to feedback treatments
+            [setattr(p.participant, "feedback_treatment", treatment) for p in players]
+            # 2. assign players to income treatments
+            players.sort(key=lambda p: p.income)
+            split_index = len(players) // 2 # todo figure out how to deal with guy in the middle/equal values
+            [setattr(p.participant, "ses_treatment", "low") for p in players[:split_index]]
+            [setattr(p.participant, "ses_treatment", "high") for p in players[split_index:]]
+
         players = group.get_players()
-        # 2. assign players to income treatments
-        players.sort(key=lambda p: p.income)
-        split_index = len(players) // 2 # todo figure out how to deal with guy in the middle/equal values
-        [setattr(p.participant, 'ses_treatment', 'low') for p in players[:split_index]]
-        [setattr(p.participant, 'ses_treatment', 'high') for p in players[split_index:]]
+        # check number of playas divisible by 3
+        if len(players) % 3 != 0:
+            raise Exception("Number of players must be divisible by 3")
+        # if yes, assign treatments to participants
+        else:
+            random.shuffle(players)
+            third = len(players) // 3
+            assign_treatments(players[:third], "control")
+            assign_treatments(players[third:2*third], "competitive")
+            assign_treatments(players[2*third:], "cooperative")
+        
 
 page_sequence = [IncomeSurvey, WaitForPlayers]

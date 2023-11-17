@@ -8,7 +8,7 @@ SESSION_CONFIGS = [
         app_sequence=["app_initial_survey", "app_city_scenarios"],
         # app_sequence=["app_city_scenarios"],
         # app_sequence=["app_initial_survey"],
-        num_demo_participants=2,
+        num_demo_participants=6,
     )
 ]
 
