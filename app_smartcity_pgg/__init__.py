@@ -58,34 +58,18 @@ class Player(BasePlayer):
 # -------------------- FUNCTIONS --------------------
 
 def group_by_arrival_time_method(subsession, waiting_players):
-    print('in group_by_arrival_time_method')
-
+    should_be_in_a_group = len(subsession.get_players()) // 3
+    # todo, make this more robust, what if less than should be in a group? timeouts etc.
     control = [p for p in waiting_players if p.participant.fb_treat == "control"]
     competitive = [p for p in waiting_players if p.participant.fb_treat == "competitive"]
     cooperative = [p for p in waiting_players if p.participant.fb_treat == "cooperative"]
-
-    in_all_groups = len(control) + len(competitive) + len(cooperative)
-    should_be_in_a_group = len(subsession.get_players()) // 3
-
-    print(f"should be in a group: {should_be_in_a_group}")
-    print(f"num in all groups: {in_all_groups}")
-    print(f"num in control: {len(control)}")
-    print(f"num in competitive: {len(competitive)}")
-    print(f"num in cooperative: {len(cooperative)}")
-    print(f"num in subsession: {len(subsession.get_players())}")
-    print(f"num in waiting_players: {len(waiting_players)}")
-
+    # todo, this could be refactored to 4 lines probably
     if len(competitive) == should_be_in_a_group:
-        print('about to create competitive group')
         return competitive
     elif len(cooperative) == should_be_in_a_group:
-        print('about to create cooperative group')
         return cooperative
     elif len(control) == should_be_in_a_group:
-        print('about to create control group')
         return control
-
-    print('not enough players yet to create a group')
 
 # -------------------- PAGES --------------------
 
