@@ -45,12 +45,12 @@ class WaitForPlayers(WaitPage):
         # assign treatments is called for all treatment groups
         def assign_treatments(players, treatment):
             # 1. assign players to feedback treatments
-            [setattr(p.participant, "feedback_treatment", treatment) for p in players]
+            [setattr(p.participant, "fb_treat", treatment) for p in players]
             # 2. assign players to income treatments
             players.sort(key=lambda p: p.income)
             split_index = len(players) // 2 # todo figure out how to deal with guy in the middle/equal values
-            [setattr(p.participant, "ses_treatment", "low") for p in players[:split_index]]
-            [setattr(p.participant, "ses_treatment", "high") for p in players[split_index:]]
+            [setattr(p.participant, "ses_treat", "low") for p in players[:split_index]]
+            [setattr(p.participant, "ses_treat", "high") for p in players[split_index:]]
 
         players = group.get_players()
         # check number of playas divisible by 3

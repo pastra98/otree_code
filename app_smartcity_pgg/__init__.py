@@ -56,6 +56,14 @@ class Player(BasePlayer):
     trash_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
 
 # -------------------- FUNCTIONS --------------------
+# def group_by_arrival_time_method(subsession, waiting_players):
+#     print('in group_by_arrival_time_method')
+#     comp = [p for p in waiting_players if p.participant.category == 'M']
+
+#     if len(m_players) >= 2 and len(f_players) >= 2:
+#         print('about to create a group')
+#         return [m_players[0], m_players[1], f_players[0], f_players[1]]
+#     print('not enough players yet to create a group')
 
 # -------------------- PAGES --------------------
 
@@ -73,7 +81,7 @@ class Scenario(Page):
     @staticmethod
     def get_form_fields(player):
         # assign player endowment in each round, important for max value in field
-        player.endowment = C.HIGH_ENDOW if player.participant.ses_treatment == "high" else C.LOW_ENDOW
+        player.endowment = C.HIGH_ENDOW if player.participant.ses_treat == "high" else C.LOW_ENDOW
         # return the form field for the current scenario
         return [f"{C.SCENARIOS[player.round_number-1]}_contribution"]
 
@@ -88,6 +96,7 @@ class Scenario(Page):
 class WaitForPlayers(WaitPage):
     title_text = "Waiting for players"
     body_text = "Please wait for all players"
+    group_by_arrival_time = True
 
     def after_all_players_arrive(group):
         players = group.get_players()
@@ -114,7 +123,7 @@ class Feedback(Page):
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = getattr(player, f"{scenario}_contribution")
         # get feedback message based on player treatment
-        fb = C.FEEDBACK_DICT[player.participant.feedback_treatment]
+        fb = C.FEEDBACK_DICT[player.participant.fb_treat]
 
         # todo, refactor this shit
         if group.total_spend > 0:
