@@ -3,9 +3,11 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='default',
+        name="default",
         display_name="smart city survey",
-        app_sequence=['app_city_scenarios'],
+        app_sequence=["app_initial_survey", "app_city_scenarios"],
+        # app_sequence=["app_city_scenarios"],
+        # app_sequence=["app_initial_survey"],
         num_demo_participants=2,
     )
 ]
@@ -19,7 +21,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = []
+PARTICIPANT_FIELDS = ["ses_treatment", "feedback_treatment"]
 SESSION_FIELDS = []
 
 # ISO-639 code
