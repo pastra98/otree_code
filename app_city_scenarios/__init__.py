@@ -8,9 +8,12 @@ class C(BaseConstants):
     NAME_IN_URL = 'city_scenarios'
     PLAYERS_PER_GROUP = 2
 
-    # ---------- Constants used by the player class
-    # default choice for all contributions
-    DEF_CHOICES = [[0,"none (cost=0)"], [1,"low (cost=1)"],[2,"high (cost=2)"]]
+    # ---------- Constants for feedback page
+    FEEDBACK_DICT = {
+        "control": "I have nothing to say",
+        "competitive": "You suck, lolz git gud",
+        "cooperative": "Kumbaya, spread the love"
+    }
 
     # ---------- Constants for endowment function
     MULTIPLIER = 2 # multiplier for the individual share
@@ -76,7 +79,8 @@ class Scenario(Page):
     def vars_for_template(player):
         scenario = C.SCENARIOS[player.round_number-1]
         return {"img": f"city_pics/{scenario}.jpg",
-                "name": scenario}
+                "name": scenario,
+                }
     
 
 class WaitForPlayers(WaitPage):
@@ -107,9 +111,9 @@ class Feedback(Page):
         group = player.group
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = getattr(player, f"{scenario}_contribution")
-        
-        print(contributions)
-        print(group.total_spend)
+        # get feedback message based on player treatment
+        fb = C.FEEDBACK_DICT[player.participant.feedback_treatment]
+
         # todo, refactor this shit
         if group.total_spend > 0:
             contribution_percentage = (contributions / group.total_spend) * 100
@@ -117,6 +121,7 @@ class Feedback(Page):
             contribution_percentage = 0
         return {
             'contribution_percentage': contribution_percentage,
+            "feedback": fb
         }
 
 
