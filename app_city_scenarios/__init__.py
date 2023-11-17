@@ -1,24 +1,22 @@
 from otree.api import *
-# from otree.forms.widgets import RadioSelect
-
-# TODO:
-
 
 doc = """
 Testing the smart city scenarios
 """
 
-
-
 class C(BaseConstants):
     NAME_IN_URL = 'city_scenarios'
     PLAYERS_PER_GROUP = 2
-    ENDOWMENT = cu(10)
-    # ---------- Constats used by the player class
+
+    # ---------- Constants used by the player class
     # default choice for all contributions
     DEF_CHOICES = [[0,"none (cost=0)"], [1,"low (cost=1)"],[2,"high (cost=2)"]]
-    # multiplier for the individual share
-    MULTIPLIER = 2
+
+    # ---------- Constants for endowment function
+    MULTIPLIER = 2 # multiplier for the individual share
+    HIGH_ENDOW = 4
+    LOW_ENDOW = 3
+
     # ---------- all existing scenarios
     SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench",
         "stopsign", "streetlight", "trash"]
@@ -35,16 +33,20 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    bike_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    bus_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    crack_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    drain_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    graffiti_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    hydrant_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    bench_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    stopsign_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    streetlight_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
-    trash_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    # this is fucking stupid, but it needs to be a field
+    endowment = models.CurrencyField(initial=0)
+
+    # todo maybe the field max value can be dynamically assigned based on endowment
+    bike_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    bus_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    crack_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    drain_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    graffiti_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    hydrant_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    bench_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    stopsign_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    streetlight_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    trash_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
 
 # -------------------- FUNCTIONS --------------------
 
@@ -56,12 +58,18 @@ class Scenario(Page):
 
     @staticmethod
     def error_message(player, values):
-        total_spend = sum(values.values()) # this works because there are no other forms here
-        if total_spend > C.ENDOWMENT:
-            return f"You have spent {total_spend} but only have {C.ENDOWMENT} to spend"
+        print(player.endowment)
+
+        contribution = sum(values.values()) # this works because there are no other forms here
+        # if total_spend > C.ENDOWMENT:
+        if contribution > player.endowment:
+            return f"You have spent {contribution} but only have {player.endowment} to spend"
 
     @staticmethod
     def get_form_fields(player):
+        # assign player endowment in each round, important for max value in field
+        player.endowment = C.HIGH_ENDOW if player.participant.ses_treatment == "high" else C.LOW_ENDOW
+
         return [f"{C.SCENARIOS[player.round_number-1]}_contribution"]
 
     @staticmethod
@@ -69,27 +77,31 @@ class Scenario(Page):
         scenario = C.SCENARIOS[player.round_number-1]
         return {"img": f"city_pics/{scenario}.jpg",
                 "name": scenario}
-
+    
 
 class WaitForPlayers(WaitPage):
     title_text = "Waiting for players"
     body_text = "Please wait for all players"
-    # after_all_players_arrive = "set_payoffs"
 
     def after_all_players_arrive(group):
         players = group.get_players()
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = [getattr(p, f"{scenario}_contribution") for p in players]
         group.total_spend = sum(contributions)
+        # todo, calculate group size dynamically here
         group.individual_share = group.total_spend * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+
         for player in players:
-            player.payoff = C.ENDOWMENT - getattr(player, f"{scenario}_contribution") + group.individual_share
+            player.payoff = (
+                player.endowment -
+                getattr(player, f"{scenario}_contribution") +
+                group.individual_share
+                )
 
 
 class Feedback(Page):
     form_model = 'player'
 
-    # broken please fix
     @staticmethod
     def vars_for_template(player):
         group = player.group
@@ -98,6 +110,7 @@ class Feedback(Page):
         
         print(contributions)
         print(group.total_spend)
+        # todo, refactor this shit
         if group.total_spend > 0:
             contribution_percentage = (contributions / group.total_spend) * 100
         else:
