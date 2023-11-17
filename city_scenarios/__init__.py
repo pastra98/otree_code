@@ -30,7 +30,7 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    total_contribution = models.CurrencyField()
+    total_spend = models.CurrencyField()
     individual_share = models.CurrencyField()
 
 
@@ -80,8 +80,8 @@ class WaitForPlayers(WaitPage):
         players = group.get_players()
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = [getattr(p, f"{scenario}_contribution") for p in players]
-        group.total_contribution = sum(contributions)
-        group.individual_share = group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+        group.total_spend = sum(contributions)
+        group.individual_share = group.total_spend * C.MULTIPLIER / C.PLAYERS_PER_GROUP
         for player in players:
             player.payoff = C.ENDOWMENT - getattr(player, f"{scenario}_contribution") + group.individual_share
 
@@ -95,13 +95,15 @@ class Feedback(Page):
         group = player.group
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = getattr(player, f"{scenario}_contribution")
-        total_group_contribution = group.total_contribution
-        if total_group_contribution > 0:
-            contribution_percentage = (contributions / total_group_contribution) * 100
+        
+        print(contributions)
+        print(group.total_spend)
+        if group.total_spend > 0:
+            contribution_percentage = (contributions / group.total_spend) * 100
         else:
             contribution_percentage = 0
         return {
-            'contribution_percentage': 0,
+            'contribution_percentage': contribution_percentage,
         }
 
 
