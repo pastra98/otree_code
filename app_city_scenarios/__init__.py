@@ -1,3 +1,7 @@
+################################################################################
+##                   PUBLIC GOODS GAME APP                                    ##
+################################################################################
+
 from otree.api import *
 
 doc = """
@@ -5,7 +9,7 @@ Testing the smart city scenarios
 """
 
 class C(BaseConstants):
-    NAME_IN_URL = 'city_scenarios'
+    NAME_IN_URL = "city_scenarios"
     PLAYERS_PER_GROUP = 2
 
     # ---------- Constants for feedback page

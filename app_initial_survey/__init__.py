@@ -1,3 +1,7 @@
+################################################################################
+##                   INCOME SURVEY APP                                        ##
+################################################################################
+
 from otree.api import *
 import random
 
@@ -6,7 +10,7 @@ get initial ses information
 """
 
 class C(BaseConstants):
-    NAME_IN_URL = 'initial_survey'
+    NAME_IN_URL = "initial_survey"
     NUM_ROUNDS = 1
     PLAYERS_PER_GROUP = None # also needs to be included
 
