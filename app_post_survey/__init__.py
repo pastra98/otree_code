@@ -3,6 +3,7 @@
 ################################################################################
 
 from otree.api import *
+from otree.forms.widgets import RadioSelect as rs
 
 doc = """
 get post game survey data
@@ -16,10 +17,7 @@ class C(BaseConstants):
 
 class Player(BasePlayer):
     # just a test for now
-    country = models.StringField(
-        widget=widgets.RadioSelect,
-        choices=["Austria", "Germany", "Switzerland"]
-        )
+    country = models.StringField(widget=rs, choices=["Austria", "Germany", "Switzerland"])
 
 
 # -------------------- UNUSED CLASSES -------------------- 
