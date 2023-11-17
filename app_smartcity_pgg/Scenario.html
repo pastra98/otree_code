@@ -1,7 +1,7 @@
 {{ block title }}All Scenes{{ endblock }}
 {{ block content }}
 
-Spend your endowment of {{ player.endowment }} on the following scenes:
+Spend your endowment of <b>{{ player.endowment }}</b>:
 
 <table>
   <tr>
@@ -15,5 +15,14 @@ Spend your endowment of {{ player.endowment }} on the following scenes:
 </table>
 
 {{ next_button }}
+
+<!-- debug info stuff here -->
+<div style="background-color: yellow; padding: 20px;">
+    <h3>Debug Info</h3>
+    Assigned feedback treatment: {{ player.participant.feedback_treatment }}<br>
+    Assigned ses treatment: {{ player.participant.ses_treatment }}<br>
+    Endowment: {{ player.endowment }}<br>
+</div>
+
 
 {{ endblock }}

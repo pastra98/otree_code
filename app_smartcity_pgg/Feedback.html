@@ -5,9 +5,18 @@
 <h1> {{ feedback }} </h1>
 
 <!-- {{ participant.payoff }} this is the total payoff -->
-{{ player.payoff }} this is the round payoff <br>
 {{ group.total_spend }} this is the total group spend <br>
+{{ player.payoff }} this is your payoff in this round <br>
 {{ contribution_percentage }} % contrib percent <br>
+
+<!-- debug info stuff here -->
+<div style="background-color: yellow; padding: 20px;">
+    <h3>Debug Info</h3>
+    Assigned feedback treatment: {{ player.participant.feedback_treatment }}<br>
+    Assigned ses treatment: {{ player.participant.ses_treatment }}<br>
+    Endowment: {{ player.endowment }}<br>
+</div>
+
 
 {{ next_button }}
 

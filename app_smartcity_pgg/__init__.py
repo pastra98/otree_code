@@ -65,8 +65,6 @@ class Scenario(Page):
 
     @staticmethod
     def error_message(player, values):
-        print(player.endowment)
-
         contribution = sum(values.values()) # this works because there are no other forms here
         # if total_spend > C.ENDOWMENT:
         if contribution > player.endowment:
@@ -76,7 +74,7 @@ class Scenario(Page):
     def get_form_fields(player):
         # assign player endowment in each round, important for max value in field
         player.endowment = C.HIGH_ENDOW if player.participant.ses_treatment == "high" else C.LOW_ENDOW
-
+        # return the form field for the current scenario
         return [f"{C.SCENARIOS[player.round_number-1]}_contribution"]
 
     @staticmethod
@@ -96,8 +94,8 @@ class WaitForPlayers(WaitPage):
         scenario = C.SCENARIOS[group.round_number-1]
         contributions = [getattr(p, f"{scenario}_contribution") for p in players]
         group.total_spend = sum(contributions)
-        # todo, calculate group size dynamically here
-        group.individual_share = group.total_spend * C.MULTIPLIER / C.PLAYERS_PER_GROUP
+        # todo, is it possible to set group size dynamically??
+        group.individual_share = group.total_spend * C.MULTIPLIER / len(players)
 
         for player in players:
             player.payoff = (
