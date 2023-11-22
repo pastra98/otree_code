@@ -79,7 +79,9 @@ class WaitForPlayers(WaitPage):
         # normally this is done in creating_session in subsession class, but it didn't work there
         for player in group.subsession.get_players():
             participant = player.participant
-            participant.label = f"P{participant.id_in_session}-{group.subsession.session.code}-{dt.now()}"
+            time = dt.now().strftime('%Y-%m-%d_%H:%M')
+            sesh_code = group.subsession.session.code
+            participant.label = f"P{participant.id_in_session}-{sesh_code}-{time}"
         ##################################################
 
 
