@@ -10,7 +10,7 @@ Testing the smart city scenarios
 
 class C(BaseConstants):
     NAME_IN_URL = "city_scenarios"
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = 2 # change this to 4 later
 
     # ---------- Constants for feedback page
     FEEDBACK_DICT = {
