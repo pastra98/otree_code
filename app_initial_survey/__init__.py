@@ -18,6 +18,7 @@ class C(BaseConstants):
 class Player(BasePlayer):
     # just a test for now
     income = models.CurrencyField(min=0)
+    understood_game = models.BooleanField(label="Did you understand the game?", choices=[[True, 'Yes'], [False, 'No']])
 
 
 # -------------------- UNUSED CLASSES -------------------- 
@@ -30,6 +31,11 @@ class Subsession(BaseSubsession):
     pass
 
 # -------------------- PAGES --------------------
+
+class Explanation(Page):
+    form_model = "player"
+    form_fields = ["understood_game"]
+
 
 class IncomeSurvey(Page):
     form_model = "player"
@@ -65,4 +71,4 @@ class WaitForPlayers(WaitPage):
             assign_treatments(players[2*third:], "cooperative")
         
 
-page_sequence = [IncomeSurvey, WaitForPlayers]
+page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
