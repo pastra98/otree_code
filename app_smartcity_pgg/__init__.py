@@ -59,18 +59,22 @@ class Player(BasePlayer):
 
 # this function ensures that only players with the same feedback treatment are grouped together
 def group_by_arrival_time_method(subsession, waiting_players):
-    should_be_in_a_group = len(subsession.get_players()) // 3
-    # todo, make this more robust, what if less than should be in a group? timeouts etc.
+
+    # Group players by feedback treatment
     control = [p for p in waiting_players if p.participant.fb_treat == "control"]
     competitive = [p for p in waiting_players if p.participant.fb_treat == "competitive"]
     cooperative = [p for p in waiting_players if p.participant.fb_treat == "cooperative"]
-    # todo, this could be refactored to 4 lines probably
-    if len(competitive) == should_be_in_a_group:
-        return competitive
-    elif len(cooperative) == should_be_in_a_group:
-        return cooperative
-    elif len(control) == should_be_in_a_group:
-        return control
+
+    # Assign players to groups when enough players are available for each treatment
+    if len(control) >= C.PLAYERS_PER_GROUP:
+        return control[:C.PLAYERS_PER_GROUP]
+    elif len(competitive) >= C.PLAYERS_PER_GROUP:
+        return competitive[:C.PLAYERS_PER_GROUP]
+    elif len(cooperative) >= C.PLAYERS_PER_GROUP:
+        return cooperative[:C.PLAYERS_PER_GROUP]
+
+    # If not enough players are available in any treatment, return None to keep waiting
+    return None
 
 # -------------------- PAGES --------------------
 
