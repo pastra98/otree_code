@@ -4,6 +4,8 @@
 
 from otree.api import *
 import random
+from datetime import datetime as dt
+
 
 doc = """
 get initial ses information
@@ -28,6 +30,8 @@ class Group(BaseGroup):
     pass
 
 class Subsession(BaseSubsession):
+    # normally creating_session should be used to assign treatments and part. labels
+    # but it didn't work there, so it's done in the waitpage
     pass
 
 # -------------------- PAGES --------------------
@@ -60,6 +64,7 @@ class WaitForPlayers(WaitPage):
 
         players = group.get_players()
         # check number of playas divisible by 3
+        # TODO: this constraint can be removed if we allow for unequal group sizes
         if len(players) % 3 != 0:
             raise Exception("Number of players must be divisible by 3")
         # if yes, assign treatments to participants
@@ -70,5 +75,13 @@ class WaitForPlayers(WaitPage):
             assign_treatments(players[third:2*third], "competitive")
             assign_treatments(players[2*third:], "cooperative")
         
+        ##################################################
+        # normally this is done in creating_session in subsession class, but it didn't work there
+        for player in group.subsession.get_players():
+            participant = player.participant
+            participant.label = f"P{participant.id_in_session}-{group.subsession.session.code}-{dt.now()}"
+        ##################################################
 
-page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
+
+# page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
+page_sequence = [IncomeSurvey, WaitForPlayers]
