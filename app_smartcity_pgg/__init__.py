@@ -3,6 +3,7 @@
 ################################################################################
 
 from otree.api import *
+from otree.forms.widgets import RadioSelect as rs
 
 doc = """
 Testing the smart city scenarios
@@ -44,16 +45,16 @@ class Player(BasePlayer):
     endowment = models.CurrencyField(initial=0)
 
     # todo maybe the field max value can be dynamically assigned based on endowment
-    bike_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    bus_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    crack_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    drain_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    graffiti_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    hydrant_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    bench_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    stopsign_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    streetlight_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
-    trash_contribution = models.CurrencyField(min=0, max=C.HIGH_ENDOW)
+    bike_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    bus_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    crack_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    drain_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    graffiti_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    hydrant_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    bench_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    stopsign_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    streetlight_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    trash_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
 
 # -------------------- FUNCTIONS --------------------
 
@@ -99,8 +100,13 @@ class Scenario(Page):
     @staticmethod
     def vars_for_template(player):
         scenario = C.SCENARIOS[player.round_number-1]
-        return {"img": f"city_pics/{scenario}.jpg",
+        return {"img1": f"city_pics/{scenario}/{scenario}1.jpg",
+                "img2": f"city_pics/{scenario}/{scenario}2.jpg",
+                "img3": f"city_pics/{scenario}/{scenario}3.jpg",
+                "img4": f"city_pics/{scenario}/{scenario}4.jpg",
+                "img5": f"city_pics/{scenario}/{scenario}5.jpg",
                 "name": scenario,
+                "formname": f"{C.SCENARIOS[player.round_number-1]}_contribution",
                 }
     
 

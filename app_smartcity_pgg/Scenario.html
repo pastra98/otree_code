@@ -1,16 +1,51 @@
 {{ block title }}All Scenes{{ endblock }}
 {{ block content }}
 
+<style>
+    .scenario-table {
+        width: 100%;
+        table-layout: fixed;
+        padding: 0 10px; /* Padding on the sides */
+    }
+    .scenario-table img {
+        width: 100%; /* Make images responsive */
+        height: auto;
+    }
+    .scenario-table td {
+        padding: 5px; /* Spacing between cells */
+    }
+</style>
+
 Spend your endowment of <b>{{ player.endowment }}</b>:
 
-<table>
+<table class="scenario-table">
   <tr>
     <td style="width: 60%;">
-        <img src="{{ static img }}" alt="{{ name }}" width="40%" height="40%" style="margin-bottom: 50px; margin-right: 100px;">
+        <img src="{{ static img1 }}" alt="{{ name }}" >
     </td>
-    <td>
-        {{ formfields }}
+    <td style="width: 60%;">
+        <img src="{{ static img2 }}" alt="{{ name }}" >
     </td>
+    <td style="width: 60%;">
+        <img src="{{ static img3 }}" alt="{{ name }}" >
+    </td>
+    <td style="width: 60%;">
+        <img src="{{ static img4 }}" alt="{{ name }}" >
+    </td>
+    <td style="width: 60%;">
+        <img src="{{ static img5 }}" alt="{{ name }}" >
+    </td>
+  </tr>
+  <tr>
+        {{ for field in form }}
+            {{ for choice in field }}
+                <td>
+                {{ choice }}
+                effort: {{ choice.label }}
+                </td>
+            {{ endfor }}
+        {{ endfor }}
+
   </tr>
 </table>
 
