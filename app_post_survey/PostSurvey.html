@@ -2,11 +2,69 @@
 
 {{ block content }}
 
-<h1> Hello pls give us ur data </h1>
+<style>
+    .survey-question {
+        margin-bottom: 20px; /* Adjust the spacing as needed */
+    }
+    .submit-button {
+        background-color: #4CAF50; /* Green background */
+        border: none;
+        color: white;
+        padding: 15px 32px; /* Larger padding for bigger button */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px; /* Larger font size */
+        margin: 4px 2px;
+        cursor: pointer;
+    }
 
-Where are you from? <br>
-{{ formfield player.country }}
+</style>
 
-{{ next_button }}
+<h1>Post-Game Survey</h1>
+
+<form>
+    <div class="survey-question">
+        <strong>{{ form.country.label }}</strong><br>
+        {{ form.country }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.education_level.label }}</strong><br>
+        {{ form.education_level }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.mothers_education_level.label }}</strong><br>
+        {{ form.mothers_education_level }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.fathers_education_level.label }}</strong><br>
+        {{ form.fathers_education_level }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.occupation.label }}</strong><br>
+        {{ form.occupation }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.household_composition.label }}</strong><br>
+        {{ form.household_composition }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.number_of_books.label }}</strong><br>
+        {{ form.number_of_books }}
+    </div>
+
+    <div class="survey-question">
+        <strong>{{ form.cultural_activities_frequency.label }}</strong><br>
+        {{ form.cultural_activities_frequency }}
+    </div>
+
+    <button type="submit" class="submit-button">Submit Survey</button>
+</form>
 
 {{ endblock }}
