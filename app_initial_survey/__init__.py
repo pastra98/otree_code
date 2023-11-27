@@ -19,7 +19,10 @@ class C(BaseConstants):
 
 class Player(BasePlayer):
     # just a test for now
-    income = models.CurrencyField(min=0)
+    income = models.IntegerField(
+        widget=widgets.RadioSelect,
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    )
     understood_game = models.BooleanField(label="Did you understand the game?", choices=[[True, 'Yes'], [False, 'No']])
 
 
