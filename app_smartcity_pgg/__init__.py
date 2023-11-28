@@ -26,8 +26,7 @@ class C(BaseConstants):
     LOW_ENDOW = 3
 
     # ---------- all existing scenarios
-    SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench",
-        "stopsign", "streetlight", "trash"]
+    SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench"]
     NUM_ROUNDS = len(SCENARIOS)
 
 
@@ -52,9 +51,6 @@ class Player(BasePlayer):
     graffiti_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
     hydrant_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
     bench_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    stopsign_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    streetlight_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    trash_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
 
 # -------------------- FUNCTIONS --------------------
 
