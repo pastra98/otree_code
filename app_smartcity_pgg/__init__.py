@@ -15,11 +15,33 @@ class C(BaseConstants):
 
     # ---------- Constants for feedback page
     FEEDBACK_DICT = {
-        "control": "I have nothing to say",
-        "competitive": "You suck, lolz git gud",
-        "cooperative": "Kumbaya, spread the love"
-    }
+        "control": 
+            ("Your contribution of XX points has significantly improved Vienna's"
+             "cleanliness for all residents and visitors. Thanks to your efforts,"
+             "Vienna is becoming a better place. On average, participants"
+             "contributed XXX points to the city's improvement. Your personal"
+             "payout is XX Points, contributing to the total payout of XX Points."),
 
+        "competitive":
+            ("Your contribution of XX points has significantly improved Vienna's"
+             "cleanliness for all residents and visitors. Thanks to your efforts,"
+             "Vienna is becoming a better place. On average, participants contributed"
+             "XXX points to the city's improvement. Your personal payout is XX"
+             "Points, contributing to the total payout of XX Points."),
+        "cooperative": {
+            "better":
+                ("Thank you for your submission! You stand out as one of the top X% "
+                 "contributors. Your contribution of XX points has a significant impact "
+                 "on the city of Vienna. Your personal payout is XX Points, contributing "
+                 "to the total payout of XX Points."),
+            "worse": 
+                ("We appreciate your submission. To enhance Vienna's cleanliness, consider "
+                 "increasing your effort. You rank below 85% of contributors, averaging XX "
+                 "points, while you submitted XX points. Your personal payout is XX Points, "
+                 "contributing to the total payout of XX Points.")
+        }
+
+    }
     # ---------- Constants for endowment function
     MULTIPLIER = 2 # multiplier for the individual share
     HIGH_ENDOW = 4
