@@ -15,6 +15,7 @@ class C(BaseConstants):
     NAME_IN_URL = "initial_survey"
     NUM_ROUNDS = 1
     PLAYERS_PER_GROUP = None # also needs to be included
+    FB_TREATMENTS = ["control", "competitive", "cooperative"]
 
 
 class Player(BasePlayer):
@@ -64,20 +65,20 @@ class WaitForPlayers(WaitPage):
             split_index = len(players) // 2 # todo figure out how to deal with guy in the middle/equal values
             [setattr(p.participant, "ses_treat", "low") for p in players[:split_index]]
             [setattr(p.participant, "ses_treat", "high") for p in players[split_index:]]
+            print(f"{players} were assigned to {treatment}")
 
         players = group.get_players()
-        # check number of playas divisible by 3
-        # TODO: this constraint can be removed if we allow for unequal group sizes
-        if len(players) % 3 != 0:
+        # check number of playas divisible by 4 - allows for unequal treament sizes
+        if len(players) % 4 != 0:
             raise Exception("Number of players must be divisible by 3")
         # if yes, assign treatments to participants
         else:
             random.shuffle(players)
-            third = len(players) // 3
-            assign_treatments(players[:third], "control")
-            assign_treatments(players[third:2*third], "competitive")
-            assign_treatments(players[2*third:], "cooperative")
-        
+            for i in range(0, len(players), 4):
+                batch = players[i:i+4]
+                treatment = C.FB_TREATMENTS[i // 4 % len(C.FB_TREATMENTS)]
+                assign_treatments(batch, treatment)
+
         ##################################################
         # normally this is done in creating_session in subsession class, but it didn't work there
         for player in group.subsession.get_players():
