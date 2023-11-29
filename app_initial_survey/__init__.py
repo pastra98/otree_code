@@ -79,14 +79,12 @@ class WaitForPlayers(WaitPage):
                 treatment = C.FB_TREATMENTS[i // 4 % len(C.FB_TREATMENTS)]
                 assign_treatments(batch, treatment)
 
-        ##################################################
         # normally this is done in creating_session in subsession class, but it didn't work there
         for player in group.subsession.get_players():
             participant = player.participant
             time = dt.now().strftime('%Y-%m-%d_%H:%M')
             sesh_code = group.subsession.session.code
             participant.label = f"P{participant.id_in_session}-{sesh_code}-{time}"
-        ##################################################
 
 
 # page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
