@@ -57,7 +57,7 @@ class Player(BasePlayer):
 # this function ensures that only players with the same feedback treatment are grouped together
 def group_by_arrival_time_method(subsession, waiting_players):
     # Define the required number of players with each SES in a group
-    REQUIRED_LOW_SES = REQUIRED_HIGH_SES = C.GROUP_SIZE // 2
+    REQUIRED_LOW_SES = REQUIRED_HIGH_SES = C.PLAYERS_PER_GROUP // 2
 
     # Group players by feedback treatment
     control = [p for p in waiting_players if p.participant.fb_treat == "control"]
