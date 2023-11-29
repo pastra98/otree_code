@@ -15,7 +15,7 @@ class C(BaseConstants):
     NAME_IN_URL = "initial_survey"
     NUM_ROUNDS = 1
     PLAYERS_PER_GROUP = None # also needs to be included
-    FB_TREATMENTS = ["control", "competitive", "cooperative"]
+    FB_TREATMENTS = ["competitive", "cooperative", "control"]
 
 
 class Player(BasePlayer):
