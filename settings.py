@@ -1,39 +1,32 @@
 from os import environ
 
-
 SESSION_CONFIGS = [
     dict(
-        name="default",
-        display_name="smart city survey",
+        name="real_session",
+        display_name="Smart City Survey - Real Session",
         app_sequence=["app_initial_survey", "app_smartcity_pgg", "app_post_survey"],
-        # app_sequence=["app_smartcity_pgg"],
-        # app_sequence=["app_initial_survey"],
-        # app_sequence=["app_post_survey"],
-        num_demo_participants=6,
+        num_demo_participants=12,  # Set a reasonable number for testing
+        use_browser_bots=False,    # Disable browser bots for real sessions
     )
 ]
 
-# if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
-# in SESSION_CONFIGS, except those that explicitly override it.
-# the session config can be accessed from methods in your apps as self.session.config,
-# e.g. self.session.config['participation_fee']
-
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, 
+    participation_fee=0.00, 
+    doc="",
+    experiment_started=False,  # Add this to control the manual start of the session
 )
 
 PARTICIPANT_FIELDS = ["ses_treat", "fb_treat"]
-SESSION_FIELDS = []
+SESSION_FIELDS = ["experiment_started"]
 
-# ISO-639 code
-# for example: de, fr, ja, ko, zh-hans
 LANGUAGE_CODE = 'en'
 
-# e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'
+
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
@@ -41,7 +34,14 @@ DEMO_PAGE_INTRO_HTML = """
 Welcome to the smartcity experiment.
 """
 
-
 SECRET_KEY = '3088493198341'
 
 INSTALLED_APPS = ['otree']
+
+ROOMS = [
+    dict(
+        name='smart_city_room',
+        display_name='Smart City Experiment Room',
+        # use_secure_urls=False,
+    )
+]
