@@ -56,19 +56,29 @@ class Player(BasePlayer):
 
 # this function ensures that only players with the same feedback treatment are grouped together
 def group_by_arrival_time_method(subsession, waiting_players):
+    # Define the required number of players with each SES in a group
+    REQUIRED_LOW_SES = REQUIRED_HIGH_SES = C.GROUP_SIZE // 2
 
     # Group players by feedback treatment
     control = [p for p in waiting_players if p.participant.fb_treat == "control"]
     competitive = [p for p in waiting_players if p.participant.fb_treat == "competitive"]
     cooperative = [p for p in waiting_players if p.participant.fb_treat == "cooperative"]
 
-    # Assign players to groups when enough players are available for each treatment
-    if len(control) >= C.PLAYERS_PER_GROUP:
-        return control[:C.PLAYERS_PER_GROUP]
-    elif len(competitive) >= C.PLAYERS_PER_GROUP:
-        return competitive[:C.PLAYERS_PER_GROUP]
-    elif len(cooperative) >= C.PLAYERS_PER_GROUP:
-        return cooperative[:C.PLAYERS_PER_GROUP]
+    # Function to form groups with balanced SES
+    def form_group(players):
+        low_ses_players = [p for p in players if p.participant.ses_treat == "low"]
+        high_ses_players = [p for p in players if p.participant.ses_treat == "high"]
+
+        if len(low_ses_players) >= REQUIRED_LOW_SES and len(high_ses_players) >= REQUIRED_HIGH_SES:
+            return low_ses_players[:REQUIRED_LOW_SES] + high_ses_players[:REQUIRED_HIGH_SES]
+        else:
+            return None
+
+    # Try to form groups for each treatment
+    for treatment_group in [control, competitive, cooperative]:
+        group = form_group(treatment_group)
+        if group:
+            return group
 
     # If not enough players are available in any treatment, return None to keep waiting
     return None
