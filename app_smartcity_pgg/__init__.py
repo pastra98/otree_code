@@ -13,13 +13,6 @@ class C(BaseConstants):
     NAME_IN_URL = "city_scenarios"
     PLAYERS_PER_GROUP = 4 # change this to 4 later
 
-    # ---------- Constants for feedback page
-    FEEDBACK_DICT = {
-        "control": "I have nothing to say",
-        "competitive": "You suck, lolz git gud",
-        "cooperative": "Kumbaya, spread the love"
-    }
-
     # ---------- Constants for endowment function
     MULTIPLIER = 2 # multiplier for the individual share
     HIGH_ENDOW = 4
