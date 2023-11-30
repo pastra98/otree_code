@@ -13,7 +13,7 @@ SetWorkingDir, %A_ScriptDir%
         Loop, 9
         {
             Random, rand, 0, 100
-            if (rand < 10)
+            if (rand > 30)
             {
                 Send, {Right}
                 Sleep, 100
@@ -81,6 +81,24 @@ return
         Send, ^{Tab}
         Sleep, 100
         Loop, 8
+        {
+            Send, {Tab}
+            Sleep, 100
+            Send, {Down}
+            Sleep, 100
+        }
+        Send, {Enter}
+        Sleep, 100
+    }
+return
+
+; explanation
+^#a::
+    Loop, 12
+    {
+        Send, ^{Tab}
+        Sleep, 100
+        Loop, 4
         {
             Send, {Tab}
             Sleep, 100
