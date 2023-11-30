@@ -20,13 +20,13 @@
         <p>Thank you for your submission! You <b>spent more than
         {{ spent_more_than }}</b> <i>(and the same as {{ spent_as_much_as }})</i>
         out of <b>3</b> other contributors. Your contribution of <b>{{ player_contrib }}</b>
-        has made a significant impact on the city of Vienna, accounting for
+        has made a significant impact on the city, accounting for
         <b>{{contribution_percent}}%</b> of all contributions in your group.
         Your personal payout this round is <b>{{ player.payoff }}</b> ,
         contributing to your total of <b>{{ participant_total }}</b>.</p>
     {% else %}
         <!------------ COMPETITIVE BAD ------------>
-        <p>We appreciate your submission. However, to enhance Vienna's cleanliness,
+        <p>We appreciate your submission. However, to enhance the cities cleanliness,
         consider increasing your effort. <b>{{ spent_less_than }} out of 3 other
         of contributors spent more than you</b> <i>({{ spent_as_much_as }} contributors spent
         the same amount)</i>, garnering a group total of <b>{{ group.total_spend }}</b>,
@@ -38,14 +38,14 @@
     {% if player_contrib > 0 %}
         <!------------ COOPERATIVE > 0 ------------>
         <p>Your contribution of <b>{{ player_contrib }}</b> has significantly improved
-        Vienna's cleanliness for all residents and visitors. Thanks to your
-        efforts, Vienna is becoming a better place. In total, all 4 members of your group
+        the cities cleanliness for all residents and visitors. Thanks to your
+        efforts, the city is becoming a better place. In total, all 4 members of your group
         contributed <b>{{ group.total_spend }}</b> to the city's improvement. Your
         personal payoff this round is <b>{{ player.payoff }}</b>, contributing to your
         total payoff of <b>{{ participant_total }}</b>.</p>
     {% else %}
         <!------------ COOPERATIVE = 0 ------------>
-        <p>Thanks to your groups efforts, Vienna is becoming a better place.
+        <p>Thanks to your groups efforts, the city is becoming a better place.
         In total, all 4 members of your group contributed <b>{{ group.total_spend }}</b>
         to the city's improvement. Your personal payoff this round is
         <b>{{ player.payoff }}</b>, contributing to your total payoff of
