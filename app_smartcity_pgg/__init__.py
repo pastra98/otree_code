@@ -11,37 +11,15 @@ Testing the smart city scenarios
 
 class C(BaseConstants):
     NAME_IN_URL = "city_scenarios"
-    PLAYERS_PER_GROUP = 2 # change this to 4 later
+    PLAYERS_PER_GROUP = 4 # change this to 4 later
 
     # ---------- Constants for feedback page
     FEEDBACK_DICT = {
-        "control": 
-            ("Your contribution of XX points has significantly improved Vienna's"
-             "cleanliness for all residents and visitors. Thanks to your efforts,"
-             "Vienna is becoming a better place. On average, participants"
-             "contributed XXX points to the city's improvement. Your personal"
-             "payout is XX Points, contributing to the total payout of XX Points."),
-
-        "competitive":
-            ("Your contribution of XX points has significantly improved Vienna's"
-             "cleanliness for all residents and visitors. Thanks to your efforts,"
-             "Vienna is becoming a better place. On average, participants contributed"
-             "XXX points to the city's improvement. Your personal payout is XX"
-             "Points, contributing to the total payout of XX Points."),
-        "cooperative": {
-            "better":
-                ("Thank you for your submission! You stand out as one of the top X% "
-                 "contributors. Your contribution of XX points has a significant impact "
-                 "on the city of Vienna. Your personal payout is XX Points, contributing "
-                 "to the total payout of XX Points."),
-            "worse": 
-                ("We appreciate your submission. To enhance Vienna's cleanliness, consider "
-                 "increasing your effort. You rank below 85% of contributors, averaging XX "
-                 "points, while you submitted XX points. Your personal payout is XX Points, "
-                 "contributing to the total payout of XX Points.")
-        }
-
+        "control": "I have nothing to say",
+        "competitive": "You suck, lolz git gud",
+        "cooperative": "Kumbaya, spread the love"
     }
+
     # ---------- Constants for endowment function
     MULTIPLIER = 2 # multiplier for the individual share
     HIGH_ENDOW = 4
@@ -156,6 +134,7 @@ class WaitForPlayers(WaitPage):
                 getattr(player, f"{scenario}_contribution") +
                 group.individual_share
                 )
+            player.participant.total_points += player.payoff
 
 
 class Feedback(Page):
@@ -165,18 +144,36 @@ class Feedback(Page):
     def vars_for_template(player):
         group = player.group
         scenario = C.SCENARIOS[group.round_number-1]
-        contributions = getattr(player, f"{scenario}_contribution")
-        # get feedback message based on player treatment
-        fb = C.FEEDBACK_DICT[player.participant.fb_treat]
+        player_contrib = getattr(player, f"{scenario}_contribution")
 
-        # todo, refactor this shit
+        # determine if current player contributes more than 50% of the group members
+        spent_more_than, spent_as_much_as  = 0, 0
+        for p in group.get_players():
+            if p != player:
+                if player_contrib > getattr(p, f"{scenario}_contribution"):
+                    spent_more_than += 1
+                elif player_contrib == getattr(p, f"{scenario}_contribution"):
+                    spent_as_much_as += 1
+        outspent_percent = round((spent_more_than / (len(group.get_players())-1)) * 100, 2)
+
+        # group spending relative percent
         if group.total_spend > 0:
-            contribution_percentage = round((float(contributions) / float(group.total_spend)) * 100, 2)
+            contribution_percentage = round((float(player_contrib) / float(group.total_spend)) * 100, 2)
         else:
             contribution_percentage = 0
+
         return {
-            'contribution_percentage': contribution_percentage,
-            "feedback": fb
+            "contribution_percent": contribution_percentage,
+            "feedback_treat": player.participant.fb_treat,
+            "outspent_percent": outspent_percent,
+            "spentmore_percent": outspent_percent ,
+            "spent_more_than": spent_more_than,
+            "spent_as_much_as": spent_as_much_as,
+            "spent_less_than": C.PLAYERS_PER_GROUP - spent_more_than - spent_as_much_as - 1,
+            "player_contrib": player_contrib,
+            "group_total": group.total_spend,
+            "participant_total": player.participant.total_points,
+            "scenario": scenario
         }
 
 class AssignGroupWait(WaitPage):

@@ -2,21 +2,73 @@
 
 {{ block content }}
 
-<h1> {{ feedback }} </h1>
+<h1>Round summary</h1>
 
-<!-- {{ participant.payoff }} this is the total payoff -->
-{{ group.total_spend }} this is the total group spend <br>
-{{ player.payoff }} this is your payoff in this round <br>
-you contributed {{ contribution_percentage }}% to the total pot<br>
+<style>
+    .feedback-message {
+        font-size: 1.1em; /* Increase font size */
+        background-color: #f0f8ff; /* Light blue background */
+        border-left: 5px solid #007bff; /* Add a left border for emphasis */
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+</style>
 
-<!-- debug info stuff here -->
-<div style="background-color: yellow; padding: 20px;">
-    <h3>Debug Info</h3>
-    Assigned feedback treatment: {{ player.participant.fb_treat }}<br>
-    Assigned ses treatment: {{ player.participant.ses_treat }}<br>
-    Endowment: {{ player.endowment }}<br>
+<div class="feedback-message">
+{% if feedback_treat == "competitive" %}
+    {% if spent_less_than <= 1 %}
+        <!------------ COMPETITIVE GOOD ------------>
+        <p>Thank you for your submission! You <b>spent more than
+        {{ spent_more_than }}</b> <i>(and the same as {{ spent_as_much_as }})</i>
+        out of <b>3</b> other contributors. Your contribution of <b>{{ player_contrib }}</b>
+        has made a significant impact on the city of Vienna, accounting for
+        <b>{{contribution_percent}}%</b> of all contributions in your group.
+        Your personal payout this round is <b>{{ player.payoff }}</b> ,
+        contributing to your total of <b>{{ participant_total }}</b>.</p>
+    {% else %}
+        <!------------ COMPETITIVE BAD ------------>
+        <p>We appreciate your submission. However, to enhance Vienna's cleanliness,
+        consider increasing your effort. <b>{{ spent_less_than }} out of 3 other
+        of contributors spent more than you</b> <i>({{ spent_as_much_as }} contributors spent
+        the same amount)</i>, garnering a group total of <b>{{ group.total_spend }}</b>,
+        to which you submitted <b>{{ player_contrib }}</b>. Your personal payout
+        this round is <b>{{ player.payoff }}</b>, contributing to your
+        total of <b>{{ participant_total }}</b>.</p>
+    {% endif %}
+{% elif feedback_treat == "cooperative" %}
+    {% if player_contrib > 0 %}
+        <!------------ COOPERATIVE > 0 ------------>
+        <p>Your contribution of <b>{{ player_contrib }}</b> has significantly improved
+        Vienna's cleanliness for all residents and visitors. Thanks to your
+        efforts, Vienna is becoming a better place. In total, all 4 members of your group
+        contributed <b>{{ group.total_spend }}</b> to the city's improvement. Your
+        personal payoff this round is <b>{{ player.payoff }}</b>, contributing to your
+        total payoff of <b>{{ participant_total }}</b>.</p>
+    {% else %}
+        <!------------ COOPERATIVE = 0 ------------>
+        <p>Thanks to your groups efforts, Vienna is becoming a better place.
+        In total, all 4 members of your group contributed <b>{{ group.total_spend }}</b>
+        to the city's improvement. Your personal payoff this round is
+        <b>{{ player.payoff }}</b>, contributing to your total payoff of
+        <b>{{ participant_total }}</b>.</p>
+    {% endif %}
+{% else %}
+    <!------------ NEUTRAL ------------>
+    <p>You submitted <b>{{ player_contrib }}</b>, with a payoff of
+    <b>{{ player.payoff }}</b> for you this round. The total
+    contribution of your group is <b>{{ group.total_spend }}</b>, with your overall
+    payoff running to <b>{{ participant_total }}</b>.</p>
+{% endif %}
 </div>
 
+<!-- debug info stuff here
+<div style="background-color: yellow; padding: 20px;">
+    <h3>Debug Info</h3>
+    Assigned feedback treatment: {{ feedback_treat }}<br>
+    Assigned ses treatment: {{ player.participant.ses_treat }}<br>
+    Endowment: {{ player.endowment }}<br>
+    Contrib: {{ player_contrib }}<br>
+</div> -->
 
 {{ next_button }}
 
