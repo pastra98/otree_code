@@ -14,9 +14,9 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = 4 # change this to 4 later
 
     # ---------- Constants for endowment function
-    MULTIPLIER = 2 # multiplier for the individual share
-    HIGH_ENDOW = 4
-    LOW_ENDOW = 3
+    MULTIPLIER = 1.5 # multiplier for the individual share
+    HIGH_ENDOW = 6
+    LOW_ENDOW = 4
 
     # ---------- all existing scenarios
     SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench"]
