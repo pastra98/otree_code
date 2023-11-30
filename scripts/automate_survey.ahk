@@ -47,6 +47,14 @@ return
             Send, {Left}
             Sleep, 100
         }
+        Send, {Right}
+        Sleep, 100
+        Random, rand, 0, 100
+        if (rand < 10)
+        {
+            Send, {Left}
+            Sleep, 100
+        }
         Send, {Enter}
     }
 return
