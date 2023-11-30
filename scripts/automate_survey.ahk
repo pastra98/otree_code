@@ -33,24 +33,26 @@ return
         Sleep, 100
         Send, {Right}
         Sleep, 100
-        Random, rand, 0, 100
-        if (rand < 50)
+        Random, rand, 0, 10
+        if (rand < 3)
         {
             Send, {Left}
             Sleep, 100
         }
         Send, {Right}
         Sleep, 100
-        Random, rand, 0, 100
-        if (rand < 30)
+        Random, rand, 0, 10
+        if (rand < 3)
         {
             Send, {Left}
             Sleep, 100
         }
         Send, {Right}
         Sleep, 100
-        Random, rand, 0, 100
-        if (rand < 10)
+        Send, {Right}
+        Sleep, 100
+        Random, rand, 0, 10
+        if (rand < 1)
         {
             Send, {Left}
             Sleep, 100
