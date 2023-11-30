@@ -19,8 +19,9 @@ class C(BaseConstants):
     LOW_ENDOW = 4
 
     # ---------- all existing scenarios
-    SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench"]
-    NUM_ROUNDS = len(SCENARIOS)
+    # SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench"]
+    NUM_ROUNDS = 7
+    SCENARIOS = [f"s{i+1}" for i in range(NUM_ROUNDS)] # s1 to s7
 
 
 class Subsession(BaseSubsession):
@@ -37,13 +38,13 @@ class Player(BasePlayer):
     endowment = models.CurrencyField(initial=0)
 
     # todo maybe the field max value can be dynamically assigned based on endowment
-    bike_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    bus_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    crack_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    drain_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    graffiti_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    hydrant_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    bench_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s1_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s2_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s3_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s4_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s5_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s6_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
+    s7_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
 
 # -------------------- FUNCTIONS --------------------
 
