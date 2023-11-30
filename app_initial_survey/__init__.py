@@ -24,7 +24,44 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
         choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     )
-    understood_game = models.BooleanField(label="Did you understand the game?", choices=[[True, 'Yes'], [False, 'No']])
+
+    # Comprehension Questions
+    q1_payout_calculation = models.StringField(
+        label="How is your payout calculated in the experiment?",
+        choices=[
+            "Your endowment - Your submitted effort points",
+            "Your endowment + Average points submitted by everyone * factor",
+            "Your endowment - Your submitted effort points + Average points submitted by everyone * factor",
+            "Average points submitted by everyone"
+        ],
+        widget=widgets.RadioSelect
+    )
+    q2_effort_points = models.StringField(
+        label="If you submitted all 4 effort points from your endowment 4 points, and the other participants submitted 12 points, making a total of 16 points in the pot, what is your payout in this round?",
+        choices=["4", "0", "6", "12"],
+        widget=widgets.RadioSelect
+    )
+    q3_submission_quality = models.StringField(
+        label="If you submit more effort points, will the submission be of higher or lower quality for the city?",
+        choices=[
+            "Higher quality",
+            "Lower quality",
+            "Same quality",
+            "Not enough information"
+        ],
+        widget=widgets.RadioSelect
+    )
+    q4_experiment_info = models.StringField(
+        label="Which of the following statements is NOT true, based on the information that you know until now about the experiment:",
+        choices=[
+            "The experiment is focused on an application, through which you can submit issues as pictures to the city.",
+            "There are 7 rounds.",
+            "You can spend effort points, which stands for effort that you would spend on a submission.",
+            "The issues presented will be cleared in reality by the city."
+        ],
+        widget=widgets.RadioSelect
+    )
+
 
 
 # -------------------- UNUSED CLASSES -------------------- 
@@ -42,7 +79,8 @@ class Subsession(BaseSubsession):
 
 class Explanation(Page):
     form_model = "player"
-    form_fields = ["understood_game"]
+    form_fields = ["q1_payout_calculation", "q2_effort_points", "q3_submission_quality", "q4_experiment_info"]
+
 
 
 class IncomeSurvey(Page):
@@ -89,5 +127,4 @@ class WaitForPlayers(WaitPage):
             participant.total_points = 0
 
 
-# page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
-page_sequence = [IncomeSurvey, WaitForPlayers]
+page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
