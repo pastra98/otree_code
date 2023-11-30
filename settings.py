@@ -17,7 +17,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     experiment_started=False,  # Add this to control the manual start of the session
 )
 
-PARTICIPANT_FIELDS = ["ses_treat", "fb_treat"]
+PARTICIPANT_FIELDS = ["ses_treat", "fb_treat", "total_points"]
 SESSION_FIELDS = ["experiment_started"]
 
 LANGUAGE_CODE = 'en'

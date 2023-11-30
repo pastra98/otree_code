@@ -85,6 +85,8 @@ class WaitForPlayers(WaitPage):
             time = dt.now().strftime('%Y-%m-%d_%H:%M')
             sesh_code = group.subsession.session.code
             participant.label = f"P{participant.id_in_session}-{sesh_code}-{time}"
+            # lastly, set total points to 0
+            participant.total_points = 0
 
 
 # page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
