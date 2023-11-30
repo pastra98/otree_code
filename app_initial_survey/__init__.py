@@ -70,7 +70,7 @@ class WaitForPlayers(WaitPage):
         players = group.get_players()
         # check number of playas divisible by 4 - allows for unequal treament sizes
         if len(players) % 4 != 0:
-            raise Exception("Number of players must be divisible by 3")
+            raise Exception("Number of players must be divisible by 4")
         # if yes, assign treatments to participants
         else:
             random.shuffle(players)
