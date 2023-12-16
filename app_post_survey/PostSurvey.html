@@ -20,10 +20,34 @@
         margin: 4px 2px;
         cursor: pointer;
     }
+    .column-first-table table {
+        display: table;
+        width: 100%; /* Ensure the table takes full width */
+    }
+    .column-first-table tr {
+        display: table-cell;
+    }
+    .column-first-table td, .column-first-table th {
+        display: block;
+        padding-bottom: 10px; /* Spacing between rows */
+    }
+    .column-first-table th {
+        padding-right: 20px; /* Padding after the first column */
+        white-space: nowrap; /* Prevents the text in headers from wrapping */
+    }
+    .column-first-table td {
+        padding-right: 20px; /* Padding after the first column */
+    }
 
 </style>
 
-<h1>Post-Game Survey</h1>
+<h1>Final Survey</h1>
+
+<p>
+Thank you for reaching the final section of our survey. Your responses are
+very valuable to us, and we greatly appreciate the time you've taken to
+complete these last few questions
+</p>
 
 <form>
     <div class="question-container">
@@ -32,19 +56,36 @@
     </div>
 
     <div class="question-container">
-        <strong>{{ form.education_level.label }}</strong><br>
-        {{ form.education_level }}
+        <strong>Please select the Education Level achieved by yourself and your parents</strong><br><br>
+        <table class="column-first-table">
+            <tr>
+                <th>Level</th>
+                {{ for choice in form.education_level }}
+                    <td>{{ choice.label }}</td>
+                {{ endfor }}
+            </tr>
+
+            <tr>
+                <th>You &nbsp&nbsp&nbsp</th>
+                {{ for choice in form.education_level }}
+                    <td>{{ choice }}</td>
+                {{ endfor }}
+            </tr>
+            <tr>
+                <th>Father</th>
+                {{ for choice in form.fathers_education_level }}
+                    <td>{{ choice }}</td>
+                {{ endfor }}
+            </tr>
+            <tr>
+                <th>Mother</th>
+                {{ for choice in form.mothers_education_level }}
+                    <td>{{ choice }}</td>
+                {{ endfor }}
+            </tr>
+        </table>
     </div>
 
-    <div class="question-container">
-        <strong>{{ form.mothers_education_level.label }}</strong><br>
-        {{ form.mothers_education_level }}
-    </div>
-
-    <div class="question-container">
-        <strong>{{ form.fathers_education_level.label }}</strong><br>
-        {{ form.fathers_education_level }}
-    </div>
 
     <div class="question-container">
         <strong>{{ form.occupation.label }}</strong><br>
