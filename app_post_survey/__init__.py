@@ -30,7 +30,7 @@ class C(BaseConstants):
 
 class Player(BasePlayer):
     country = models.StringField(
-        choices=["Austria", "Germany", "Switzerland", "France", "Italy"],
+        choices=["Austria", "Germany", "Switzerland", "France", "Italy", "Other"],
         label="In which country do you currently live?",
         widget=rs)
 
@@ -50,8 +50,20 @@ class Player(BasePlayer):
         widget=rs)
 
     occupation = models.StringField(
-        choices=["Managers", "Professionals", "Technicians and associate professionals", ...],
-        label="What is your main occupation?",
+        choices=[
+            "Legislators, senior officials and managers",
+            "Professionals",
+            "Technicians and associate professionals",
+            "Clerks",
+            "Service workers and shop and market sales workers",
+            "Skilled agricultural, forestry and fishery workers",
+            "Craft and related trade workers",
+            "Plant and machine operators and assemblers",
+            "Elementary occupations",
+            "Armed forces occupation",
+            "None of the above"
+        ],
+        label="What is your main occupation? If you’re studying, unemployed or are not covering your own expenses, please choose the main occupation of one of your parents (one where monthly earnings are most likely to be higher)",
         widget=rs)
 
     household_composition = models.StringField(
@@ -67,24 +79,21 @@ class Player(BasePlayer):
             "Three persons and one child",
             "Four persons",
             "Other",
-            "No answer"
+            "Prefer not to answer"
         ],
         label="Who lives in your household (including you)?",
         widget=rs
     )
 
     number_of_books = models.StringField(
-        choices=["None or a few (0--10 books)", "Enough to fill half a shelf (11--25 books)", ...],
+        choices=[
+            "None or a few (0--10 books)",
+            "Enough to fill half a shelf (11--25 books)",
+            "Enough to fill two bookshelves (101–200 books)",
+            "Enough to fill three or more bookshelves (more than 200 books)"
+        ],
         label="How many books do you have at home?",
         widget=rs)
-
-    # Cultural activities frequency
-    cultural_activities_frequency = models.StringField(
-        choices=["Not at all", "Once or twice", "Three or four times", "More than four times"],
-        label="In the past 12 months, how often did you do the following activities? (Theater, lectures, museums, etc.)",
-        widget=rs)
-
-
 
 # -------------------- UNUSED CLASSES -------------------- 
 
@@ -106,7 +115,6 @@ class PostSurvey(Page):
         'occupation',
         'household_composition',
         'number_of_books',
-        'cultural_activities_frequency'
     ]
 
 
