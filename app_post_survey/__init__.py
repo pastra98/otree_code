@@ -21,9 +21,9 @@ class C(BaseConstants):
         "Lower secondary education",
         "Upper secondary education", 
         "Post-secondary non-tertiary education",
-        "Bachelor's or equivalent level", 
-        "Master's or equivalent level", 
-        "Doctoral or equivalent level"
+        "Bachelor's degree or equivalent level", 
+        "Master's degree or equivalent level", 
+        "Doctoral degree or equivalent level"
     ]
 
 
