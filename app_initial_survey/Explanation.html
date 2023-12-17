@@ -1,71 +1,74 @@
-{{ block title }}Explanation{{ endblock }}
+{{ block title }}Welcome to the experiment{{ endblock }}
 
 {{ block content }}
 
-<h1>Description</h1>
+<p>
+You are a citizen living in a city somewhere in the world.
+The city wants to give engaged citizens like you the option to contribute to improving the city by notifying
+city officials about all kinds of infrastructure related issues through a mobile app.
+</p>
 
-<h2>Intro</h2>
-
-<p><strong>Welcome to the experiment!</strong></p>
-
-<p>You are a citizen living in a bigger city somewhere in the world.
-The city wants to give engaged citizens like you the option to notify
-them about problems that you encounter in everyday life through a mobile
-application.</p>
-
-<p>You're using this application today and based on your contributions and
+<p>
+You're using this application today to report issues. Based on your contributions and
 those of others, the city you live in will be able to work on your
-reported issues. The more reports you and your peers contribute, the
-more the city improves.</p>
+reported issues. The better the reports are that you and your peers contribute, the
+more the city improves.
 
-<p>Please read the information on this page carefully because your
-comprehension will be tested.</p>
+We will simulate this application via a simple economic game.
+</p>
 
-<h2>The setting</h2>
+<h3>The game</h3>
 
-<p>You and the other participants may submit certain reports that we have
-already created for you. Every participant will receive between 4 and 6
-effort points. These effort points resemble the amount of effort that
-you would put into a report on your app, when encountering a problem in
-your city. You will receive points at the end, based on your individual
-contribution and based on how much effort other participants put into
-their submission.</p>
+<p>
+You will be placed in a group with 3 other classmates. Everyone of you receives
+a certain amount of points which you can choose to spend to produce an issue report.
+The focus here lies on the quality of the report, spending more points allows you
+to produce a better report - think of these points as the effort you would put into
+reporting a real-life issue in your city.
 
-<p>The underlying mechanism of points generation will be the same for
-everyone. You will play 7 rounds, every round is a clean slate where you
-can only spend the effort points you are provided with.</p>
+The rules for how this game works will be explained on the following page. You will
+also be asked to answer 4 questions about the rules in order to proceed.
+</p>
 
-<h2>The Decision</h2>
+<h3>The rules</h3> <!-- THIS STUFF GOES INTO POPUP BOX -->
 
-<p>You can decide to submit between 0 and 4 effort points per submission.
-Every effort point put into the submission will make the submission
-clearer for the city, and thus increase the likelihood of the problem
-being remedied. You have to make this decision without any form of
-communication with other participants.</p>
+<p>
+The game is played over 7 rounds. In each round you will first receive effort points
+that you can spend on reports. You can decide to choose between reports that cost
+0 to 4 effort points. Once everyone of your 3 group members has submitted a report:
+</p>
 
-<h2>The Consequences</h2>
+<ol>
+    <li>
+        the <b>value of all your reports is summed up</b>. this is the total
+        contribution of your group
+    </li>
+    <li>
+        the total contribution is divided by 4, such that everyone gets to profit from
+        all the reports submitted. Furthermore, the total contribution is increased by 50%,
+        in order to reward participants for sharing their reports. This means that
+        <b>the total points are multiplied by 1.5</b> before they are redistributed.
+    </li>
+</ol>
 
-<p>You and other participants earn extra points for every submitted report about an issue. A group of 4 players contributes to a shared pot that will be distributed. All the points that you chose not to submit will be added together with those extra points from the shared pot. This is called your "payout" and it is calculated in the following way:</p>
+The effort points you receive at the end of the round thus depend on the overall
+quality of reports in your group, as well as the effort points you chose to keep
+for yourself. This is called your "payout", and this formula again shows how your
+payout is calculated:
 
-<p>payout = Initial effort points - Your contribution + (total
-contribution by other participants / 4) * 1.5)</p>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <p>
+        $$\text{payout} = \text{Initial effort points} - \text{Your contribution} + \left( \frac{\text{total contributions in group}}{4} \right) \times 1.5$$
+    </p>
 
-<p>This means that every effort point spent on good reports will be worth
-50% more once distributed among the participants.</p>
 
-<p>After you and the other participants have made your decision, you will
-be presented with your payout, as well as some additional information.</p>
-
-<h2>Process</h2>
-
-<p>(1) After the comprehension questions, we will ask you to rank
-yourself from 1 to 10 based on your monthly available income.</p>
-
-<p>(2) Afterwards you will be presented with an issue found in your city,
-to which you can dedicate effort points from 0 (no submission) to 4
-effort points (full submission). Based on your spending, the quality of
-the submission will be higher and thus make the issue clearer to the
-city.</p>
+<p>
+The rules will be the same for everyone in your group. The effort points are
+not carried over between rounds, every round is a clean slate where you
+can only spend the effort points you are provided with. You have to decide how much
+effort you want to put into your reports without communicating with others.
+</p>
 
 <h1>Questions</h1>
 <p> <i> Only one answer is correct.  </i> </p>
