@@ -83,19 +83,20 @@ def check_answer(player, values):
 
 class Intro(Page):
     form_model = "player"
+    timeout_seconds = 120
 
 
 class QuestionPage(Page):
     form_model = "player"
     error_message = check_answer
+    timeout_seconds = 90
 
+# the questions
 class Q1(QuestionPage):
     form_fields = ["q1"]
 
-
 class Q2(QuestionPage):
     form_fields = ["q2"]
-
 
 class Q3(QuestionPage):
     form_fields = ["q3"]
@@ -104,6 +105,13 @@ class Q3(QuestionPage):
 class IncomeSurvey(Page):
     form_model = "player"
     form_fields = ["income"]
+    timeout_seconds = 90
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            player.income = 0
+
 
 
 class WaitForPlayers(WaitPage):

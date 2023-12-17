@@ -82,11 +82,11 @@ def group_by_arrival_time_method(subsession, waiting_players):
 class Scenario(Page):
     form_model = 'player'
     form_fields = [s+"_contribution" for s in C.SCENARIOS] # all scenarios
+    timeout_seconds = 90
 
     @staticmethod
     def error_message(player, values):
         contribution = sum(values.values()) # this works because there are no other forms here
-        # if total_spend > C.ENDOWMENT:
         if contribution > player.endowment:
             return f"You have spent {contribution} but only have {player.endowment} to spend"
 
@@ -108,6 +108,14 @@ class Scenario(Page):
                 "name": scenario,
                 "formname": f"{C.SCENARIOS[player.round_number-1]}_contribution",
                 }
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if timeout_happened:
+            current_scenario = C.SCENARIOS[player.round_number-1]
+            if getattr(player, f"{current_scenario}_contribution") is None:
+                setattr(player, f"{current_scenario}_contribution", 0)  # Default value
+
     
 
 class WaitForPlayers(WaitPage):
@@ -133,6 +141,7 @@ class WaitForPlayers(WaitPage):
 
 class Feedback(Page):
     form_model = 'player'
+    timeout_seconds = 30
 
     @staticmethod
     def vars_for_template(player):
