@@ -16,19 +16,15 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     PLAYERS_PER_GROUP = None # also needs to be included
     FB_TREATMENTS = ["competitive", "cooperative", "control"]
-    CORRECT_A = [2, 1, 0]
-    CORRECT_A_1 = 2
-    CORRECT_A_2 = 1
-    CORRECT_A_3 = 0
+    CORRECT_A = [None, 2, 3, 1]
 
 
 class Player(BasePlayer):
-    # just a test for now
     income = models.IntegerField(
         widget=widgets.RadioSelect,
         choices=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     )
-
+    curr_question = models.IntegerField(initial=1)
     # Comprehension Questions
     q1 = models.StringField(
         label="How is your payout calculated in the experiment?",
@@ -42,16 +38,21 @@ class Player(BasePlayer):
     )
     q2 = models.StringField(
         label="If you submitted all 4 effort points from your endowment of 4 points, and the other participants submitted 12 points, making a total of 16 points in the pot, what is your payout in this round?",
-        choices=["4", "0", "6", "12"],
+        choices=[
+            (1, "4"),
+            (2, "0"),
+            (3, "6"),
+            (4, "12")
+        ],
         widget=widgets.RadioSelect
     )
     q3 = models.StringField(
         label="If you submit more effort points, will the submission be of higher or lower quality for the city?",
         choices=[
-            "Higher quality",
-            "Lower quality",
-            "Same quality",
-            "Not enough information"
+            (1, "Higher quality"),
+            (2, "Lower quality"),
+            (3, "Same quality"),
+            (4, "Not enough information")
         ],
         widget=widgets.RadioSelect
     )
@@ -68,12 +69,36 @@ class Subsession(BaseSubsession):
     # but it didn't work there, so it's done in the waitpage
     pass
 
+# -------------------- FUNCTIONS --------------------
+@staticmethod
+def check_answer(player, values):
+    selected_answer = int(values[f"q{player.curr_question}"])
+    correct_answer = C.CORRECT_A[player.curr_question]
+    if selected_answer == correct_answer:
+        player.curr_question += 1
+    else:
+        return "Wrong answer, please try again"
+
 # -------------------- PAGES --------------------
 
-class Explanation(Page):
+class Intro(Page):
     form_model = "player"
-    form_fields = ["q1", "q2", "q3"]
 
+
+class QuestionPage(Page):
+    form_model = "player"
+    error_message = check_answer
+
+class Q1(QuestionPage):
+    form_fields = ["q1"]
+
+
+class Q2(QuestionPage):
+    form_fields = ["q2"]
+
+
+class Q3(QuestionPage):
+    form_fields = ["q3"]
 
 
 class IncomeSurvey(Page):
@@ -120,4 +145,4 @@ class WaitForPlayers(WaitPage):
             participant.total_points = 0
 
 
-page_sequence = [Explanation, IncomeSurvey, WaitForPlayers]
+page_sequence = [Intro, Q1, Q2, Q3, IncomeSurvey, WaitForPlayers]

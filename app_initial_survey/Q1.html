@@ -1,0 +1,17 @@
+{{ block content }}
+
+{{ include_sibling 'Rules.html' }}
+
+<hr>
+
+<p><i>Only one answer is correct.</i></p>
+
+<p>
+<strong>{{ form.q1.label }}</strong><br>
+{{ form.q1 }}
+</p>
+
+
+{{ next_button }}
+
+{{ endblock }}
