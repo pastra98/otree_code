@@ -70,28 +70,46 @@ can only spend the effort points you are provided with. You have to decide how m
 effort you want to put into your reports without communicating with others.
 </p>
 
-<h1>Questions</h1>
-<p> <i> Only one answer is correct.  </i> </p>
-<style>
-    .question-container {
-        background-color: #f2f2f2; /* Grey background */
-        padding: 20px; /* Padding to the sides */
-        margin-bottom: 20px; /* Spacing between questions */
+<script>
+    function showNextQuestion(currentQnum) {
+        var qList = [forminputs.q1.value, forminputs.q2.value, forminputs.q3.value];
+        var selectedAnswer = parseInt(qList[currentQnum-1])
+        var correctAnswer = {{ C.CORRECT_A }}[currentQnum-1];
+        var currentDiv = document.getElementById("id_q" + currentQnum);
+        var nextDiv = document.getElementById("id_q" + (currentQnum+1));
+        if (selectedAnswer == correctAnswer) {
+            currentDiv.hidden = true;
+            nextDiv.hidden = false; 
+            // if (nextDiv) { nextDiv.style.display = 'block'; }
+        } else {
+            alert('Incorrect answer. Please try again.');
+        }
     }
-</style>
+</script>
 
+<h1>Questions</h1>
+<p><i>Only one answer is correct.</i></p>
 
-<div class="question-container">
-    {% for field in form %}
-        <div>
-            <strong>{{ field.label }}</strong>
-            {{ field }}
-            <hr> <!-- Horizontal bar between questions -->
-        </div>
-    {% endfor %}
+<div id="question1" class="question-container">
+    <strong>{{ form.q1.label }}</strong>
+    {{ form.q1 }}
+    <button type="button" onclick="showNextQuestion(1)">Submit</button>
+</div>
+
+<div id="question2" class="question-container" hidden>
+    <strong>{{ form.q2.label }}</strong>
+    {{ form.q2 }}
+    <button type="button" onclick="showNextQuestion(2)">Submit</button>
+</div>
+
+<div id="question3" class="question-container" hidden>
+    <strong>{{ form.q3.label }}</strong>
+    {{ form.q3 }}
+    <button type="button" onclick="showNextQuestion(3)">Submit</button>
 </div>
 
 
-{{ next_button }}
+
+<!-- {{ next_button }} -->
 
 {{ endblock }}

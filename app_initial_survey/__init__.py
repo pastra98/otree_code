@@ -17,6 +17,9 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None # also needs to be included
     FB_TREATMENTS = ["competitive", "cooperative", "control"]
     CORRECT_A = [2, 1, 0]
+    CORRECT_A_1 = 2
+    CORRECT_A_2 = 1
+    CORRECT_A_3 = 0
 
 
 class Player(BasePlayer):
@@ -27,22 +30,22 @@ class Player(BasePlayer):
     )
 
     # Comprehension Questions
-    q1_payout_calculation = models.StringField(
+    q1 = models.StringField(
         label="How is your payout calculated in the experiment?",
         choices=[
-            "Your endowment - Your submitted effort points",
-            "Your endowment - Your submitted effort points + Average points submitted by everyone * factor",
-            "Your endowment + Average points submitted by everyone * factor",
-            "Average points submitted by everyone"
+            (1, "Your endowment - Your submitted effort points"),
+            (2, "Your endowment - Your submitted effort points + Average points submitted by everyone * factor"),
+            (3, "Your endowment + Average points submitted by everyone * factor"),
+            (4, "Average points submitted by everyone")
         ],
         widget=widgets.RadioSelect
     )
-    q2_effort_points = models.StringField(
+    q2 = models.StringField(
         label="If you submitted all 4 effort points from your endowment of 4 points, and the other participants submitted 12 points, making a total of 16 points in the pot, what is your payout in this round?",
         choices=["4", "0", "6", "12"],
         widget=widgets.RadioSelect
     )
-    q3_submission_quality = models.StringField(
+    q3 = models.StringField(
         label="If you submit more effort points, will the submission be of higher or lower quality for the city?",
         choices=[
             "Higher quality",
@@ -69,7 +72,7 @@ class Subsession(BaseSubsession):
 
 class Explanation(Page):
     form_model = "player"
-    form_fields = ["q1_payout_calculation", "q2_effort_points", "q3_submission_quality"]
+    form_fields = ["q1", "q2", "q3"]
 
 
 
