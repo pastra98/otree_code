@@ -116,6 +116,7 @@ class PostSurvey(Page):
         'household_composition',
         'number_of_books',
     ]
+    timeout_seconds = 120
 
 
 class CompletionConfirmation(Page):
