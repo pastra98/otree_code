@@ -20,7 +20,7 @@ class C(BaseConstants):
 
     # ---------- all existing scenarios
     # SCENARIOS = ["bike", "bus", "crack", "drain", "graffiti", "hydrant", "bench"]
-    NUM_ROUNDS = 7
+    NUM_ROUNDS = 3
     SCENARIOS = [f"s{i+1}" for i in range(NUM_ROUNDS)] # s1 to s7
 
 
@@ -34,17 +34,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # this is fucking stupid, but it needs to be a field
     endowment = models.CurrencyField(initial=0)
-
-    # todo maybe the field max value can be dynamically assigned based on endowment
     s1_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
     s2_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
     s3_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    s4_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    s5_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    s6_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
-    s7_contribution = models.CurrencyField(widget=rs, choices=[0,1,2,3,4])
 
 # -------------------- FUNCTIONS --------------------
 
@@ -141,7 +134,7 @@ class WaitForPlayers(WaitPage):
 
 class Feedback(Page):
     form_model = 'player'
-    timeout_seconds = 30
+    timeout_seconds = 45
 
     @staticmethod
     def vars_for_template(player):
