@@ -46,17 +46,6 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelect
     )
-    q3 = models.StringField(
-        label="If you submit more effort points, will the submission be of higher or lower quality for the city?",
-        choices=[
-            (1, "Higher quality"),
-            (2, "Lower quality"),
-            (3, "Same quality"),
-            (4, "Not enough information")
-        ],
-        widget=widgets.RadioSelect
-    )
-
 
 # -------------------- UNUSED CLASSES -------------------- 
 
@@ -83,7 +72,7 @@ def check_answer(player, values):
 
 class Intro(Page):
     form_model = "player"
-    timeout_seconds = 120
+    timeout_seconds = 90
 
 
 class QuestionPage(Page):
@@ -97,9 +86,6 @@ class Q1(QuestionPage):
 
 class Q2(QuestionPage):
     form_fields = ["q2"]
-
-class Q3(QuestionPage):
-    form_fields = ["q3"]
 
 
 class IncomeSurvey(Page):
@@ -153,4 +139,4 @@ class WaitForPlayers(WaitPage):
             participant.total_points = 0
 
 
-page_sequence = [Intro, Q1, Q2, Q3, IncomeSurvey, WaitForPlayers]
+page_sequence = [Intro, Q1, Q2, IncomeSurvey, WaitForPlayers]
