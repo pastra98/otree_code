@@ -19,57 +19,40 @@
 {% if feedback_treat == "competitive" %}
     {% if spent_less_than <= 1 %}
         <!------------ COMPETITIVE GOOD ------------>
-        <p>Thank you for your submission! You <b>spent more than
-        {{ spent_more_than }}</b> <i>(and the same as {{ spent_as_much_as }})</i>
-        out of <b>3</b> other contributors. Your contribution of <b>{{ player_contrib }}</b>
-        has made a significant impact on the city, accounting for
-        <b>{{contribution_percent}}%</b> of all contributions in your group.
-        Your personal payout this round is <b>{{ player.payoff }}</b> ,
-        contributing to your total of <b>{{ participant_total }}</b>.</p>
+        <p>Thank you for your report! You spent more effort on your report
+        than <b>{{spent_more_than}}</b> (and the same as <b>{{spent_as_much_as}}</b>)
+        out of <b>3</b> other contributors. The effort that you’ve put into the
+        report has made a significant impact on our city, accounting for
+        <b>{{contribution_percent}}%</b> of all effort contributed to your group.
+        Your payout this round is <b>{{player.payoff}}</b>.</p>
+
     {% else %}
         <!------------ COMPETITIVE BAD ------------>
-        <p>We appreciate your submission. However, to enhance the cities cleanliness,
-        consider increasing your effort. <b>{{ spent_less_than }} out of 3 other
-        of contributors spent more than you</b> <i>({{ spent_as_much_as }} contributors spent
-        the same amount)</i>, garnering a group total of <b>{{ group.total_spend }}</b>,
-        to which you submitted <b>{{ player_contrib }}</b>. Your personal payout
-        this round is <b>{{ player.payoff }}</b>, contributing to your
-        total of <b>{{ participant_total }}</b>.</p>
+        <p>We appreciate your report. However, your effort contribution to
+        your report was not high: <b>{{spent_less_than}}</b> of 3 other
+        contributors put more effort in their report than you, resulting
+        in a total of <b>{{group.total_spend}}</b> contributed
+        by your group, to which you contributed <b>{{player_contrib}}</b>.
+        However, we believe that by increasing your dedication and effort,
+        you have the potential to make an even more significant contribution
+        than your peers in future reports. Your payout this round is
+        <b>{{player.payoff}}</b>.</p>
     {% endif %}
 {% elif feedback_treat == "cooperative" %}
-    {% if player_contrib > 0 %}
-        <!------------ COOPERATIVE > 0 ------------>
-        <p>Your contribution of <b>{{ player_contrib }}</b> has significantly improved
-        the cities cleanliness for all residents and visitors. Thanks to your
-        efforts, the city is becoming a better place. In total, all 4 members of your group
-        contributed <b>{{ group.total_spend }}</b> to the city's improvement. Your
-        personal payoff this round is <b>{{ player.payoff }}</b>, contributing to your
-        total payoff of <b>{{ participant_total }}</b>.</p>
-    {% else %}
-        <!------------ COOPERATIVE = 0 ------------>
-        <p>Thanks to your groups efforts, the city is becoming a better place.
-        In total, all 4 members of your group contributed <b>{{ group.total_spend }}</b>
-        to the city's improvement. Your personal payoff this round is
-        <b>{{ player.payoff }}</b>, contributing to your total payoff of
-        <b>{{ participant_total }}</b>.</p>
-    {% endif %}
+    <!------------ COOPERATIVE ------------>
+    <p>Thanks to your groups efforts, the city is becoming a better place.
+    For the betterment of our city and the well-being of its citizens, we
+    encourage you to devote greater effort and attention to detail in your
+    future reports. In total, all 4 members of your group contributed
+    {{ group.total_spend }} to the city’s improvement. Your personal
+    payoff this round is {{ player.payoff }} .  <b></p>
 {% else %}
     <!------------ NEUTRAL ------------>
     <p>You submitted <b>{{ player_contrib }}</b>, with a payoff of
     <b>{{ player.payoff }}</b> for you this round. The total
-    contribution of your group is <b>{{ group.total_spend }}</b>, with your overall
-    payoff running to <b>{{ participant_total }}</b>.</p>
+    contribution of your group is <b>{{ group.total_spend }}</b>.</p>
 {% endif %}
 </div>
-
-<!-- debug info stuff here
-<div style="background-color: yellow; padding: 20px;">
-    <h3>Debug Info</h3>
-    Assigned feedback treatment: {{ feedback_treat }}<br>
-    Assigned ses treatment: {{ player.participant.ses_treat }}<br>
-    Endowment: {{ player.endowment }}<br>
-    Contrib: {{ player_contrib }}<br>
-</div> -->
 
 {{ next_button }}
 
