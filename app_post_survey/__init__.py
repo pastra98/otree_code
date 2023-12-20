@@ -16,14 +16,14 @@ class C(BaseConstants):
     # for the survey
     EDUCATION_LEVEL_CHOICES = [
         "No schooling", 
-        "Early childhood education (e.g. play school, Kindergarten)", 
-        "Primary education (elementary school)", 
-        "Lower secondary education (e.g. middle school, AHS)",
-        "Upper secondary education (e.g. High School, Gymnasium, Higher technical and vocational college)",
-        "Post-secondary non-tertiary education (e.g. Career, technical or professional training programmes, Professional Certificates)",
-        "Bachelor's degree or equivalent level", 
-        "Master's degree or equivalent level", 
-        "Doctoral degree or equivalent level"
+        "Early childhood education", 
+        "Primary education", 
+        "Lower secondary education",
+        "Upper secondary education",
+        "Post-secondary non-tertiary",
+        "Bachelor's degree or equivalent", 
+        "Master's degree or equivalent", 
+        "Doctoral degree or equivalent"
     ]
 
 
@@ -131,7 +131,7 @@ class PostSurvey(Page):
         'number_of_books',
         'income',
     ]
-    timeout_seconds = 120
+    # timeout_seconds = 120
 
 
 class CompletionConfirmation(Page):
