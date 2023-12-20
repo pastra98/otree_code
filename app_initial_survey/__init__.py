@@ -91,7 +91,7 @@ class Q2(QuestionPage):
 class IncomeSurvey(Page):
     form_model = "player"
     form_fields = ["income"]
-    timeout_seconds = 90
+    timeout_seconds = 60
 
     @staticmethod
     def before_next_page(player, timeout_happened):
