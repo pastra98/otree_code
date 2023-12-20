@@ -96,6 +96,7 @@ class Player(BasePlayer):
         widget=rs)
     income = models.StringField(
         choices=[
+            "prefer not to answer",
             "< 10.000€",
             "10.000€ - 19.999€",
             "20.000 - 29.999€",
