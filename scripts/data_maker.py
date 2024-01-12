@@ -1,3 +1,7 @@
+# TODO:
+# - add income data
+# - only three rounds
+
 import pandas as pd
 import numpy as np
 

@@ -19,11 +19,11 @@ class C(BaseConstants):
         "Early childhood education", 
         "Primary education", 
         "Lower secondary education",
-        "Upper secondary education", 
-        "Post-secondary non-tertiary education",
-        "Bachelor's degree or equivalent level", 
-        "Master's degree or equivalent level", 
-        "Doctoral degree or equivalent level"
+        "Upper secondary education",
+        "Post-secondary non-tertiary",
+        "Bachelor's degree or equivalent", 
+        "Master's degree or equivalent", 
+        "Doctoral degree or equivalent"
     ]
 
 
@@ -94,6 +94,20 @@ class Player(BasePlayer):
         ],
         label="How many books do you have at home?",
         widget=rs)
+    income = models.StringField(
+        choices=[
+            "prefer not to answer",
+            "< 10.000€",
+            "10.000€ - 19.999€",
+            "20.000 - 29.999€",
+            "30.000 - 34.999€",
+            "35.000 - 49.999€",
+            "50.000 - 64.999€",
+            "> 65.000€"
+        ],
+        label="Please estimate the bracket into which your yearly net amount of your income falls from all sources, wages, public assistance/benefits, help from relatives, alimony, and so on.",
+        widget=rs)
+
 
 # -------------------- UNUSED CLASSES -------------------- 
 
@@ -115,7 +129,9 @@ class PostSurvey(Page):
         'occupation',
         'household_composition',
         'number_of_books',
+        'income',
     ]
+    # timeout_seconds = 120
 
 
 class CompletionConfirmation(Page):

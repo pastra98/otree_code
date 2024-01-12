@@ -1,8 +1,10 @@
 #%%
 import pandas as pd
 import re
+
+#%%
 # Specify the file path relative to the root directory of the workspace
-file_path = "test_data/test_results.csv"
+file_path = "../results/pretest_20_12_pm.csv"
 
 # Load the CSV file into a DataFrame
 df = pd.read_csv(file_path)
@@ -23,6 +25,8 @@ keepcols = {
     "session.code" : "session_code",
     "session.label" : "session_label",
     "session.is_demo" : "session_is_demo",
+    "app_initial_survey.1.player.q1": "understanding_q1",
+    "app_initial_survey.1.player.q2": "understanding_q2",
     "app_smartcity_pgg.1.player.payoff" : "pgg_1_payoff",
     "app_smartcity_pgg.1.player.endowment"  : "pgg_1_endowment ",
     "app_smartcity_pgg.1.player.s1_contribution"  : "pgg_1_contribution",
@@ -39,26 +43,6 @@ keepcols = {
     "app_smartcity_pgg.3.group.id_in_subsession"  : "pgg_3_group_id",
     "app_smartcity_pgg.3.group.total_spend"  : "pgg_3_group_total_spend",
     "app_smartcity_pgg.3.group.individual_share"  : "pgg_3_individual_share",
-    "app_smartcity_pgg.4.player.payoff"  : "pgg_4_payoff",
-    "app_smartcity_pgg.4.player.s4_contribution"  : "pgg_4_contribution",
-    "app_smartcity_pgg.4.group.id_in_subsession"  : "pgg_4_group_id",
-    "app_smartcity_pgg.4.group.total_spend"  : "pgg_4_group_total_spend",
-    "app_smartcity_pgg.4.group.individual_share"  : "pgg_4_individual_share",
-    "app_smartcity_pgg.5.player.payoff"  : "pgg_5_payoff",
-    "app_smartcity_pgg.5.player.s5_contribution"  : "pgg_5_contribution",
-    "app_smartcity_pgg.5.group.id_in_subsession"  : "pgg_5_group_id",
-    "app_smartcity_pgg.5.group.total_spend"  : "pgg_5_group_total_spend",
-    "app_smartcity_pgg.5.group.individual_share"  : "pgg_5_individual_share",
-    "app_smartcity_pgg.6.player.payoff"  : "pgg_6_payoff",
-    "app_smartcity_pgg.6.player.s6_contribution"  : "pgg_6_contribution",
-    "app_smartcity_pgg.6.group.id_in_subsession"  : "pgg_6_group_id",
-    "app_smartcity_pgg.6.group.total_spend"  : "pgg_6_group_total_spend",
-    "app_smartcity_pgg.6.group.individual_share"  : "pgg_6_individual_share",
-    "app_smartcity_pgg.7.player.payoff"  : "pgg_7_payoff",
-    "app_smartcity_pgg.7.player.s7_contribution"  : "pgg_7_contribution",
-    "app_smartcity_pgg.7.group.id_in_subsession"  : "pgg_7_group_id",
-    "app_smartcity_pgg.7.group.total_spend"  : "pgg_7_group_total_spend",
-    "app_smartcity_pgg.7.group.individual_share"  : "pgg_7_individual_share",
     "app_post_survey.1.player.country"  : "post_survey_player_country",
     "app_post_survey.1.player.education_level"  : "post_survey_player_education_level",
     "app_post_survey.1.player.mothers_education_level"  : "post_survey_player_mothers_education_level",
@@ -66,7 +50,7 @@ keepcols = {
     "app_post_survey.1.player.occupation"  : "post_survey_player_occupation",
     "app_post_survey.1.player.household_composition"  : "post_survey_player_household_composition",
     "app_post_survey.1.player.number_of_books"  : "post_survey_player_number_of_books",
-    "app_post_survey.1.player.cultural_activities_frequency"  : "post_survey_player_cultural_activities_frequency",
+    "app_post_survey.1.player.income": "post_survey_player_income",
 }
 #%%
 # Select and rename the columns
@@ -74,7 +58,7 @@ df = df.loc[:, keepcols.keys()].rename(columns=keepcols)
 df
 #%%
 # export the dataframe to a csv file
-df.to_csv("test_data/test_results_cleaned.csv", index=False)
+df.to_csv("../results/cleaned_pretest_20_12_pm.csv", index=False)
 
 # %%
 ################################################################################
